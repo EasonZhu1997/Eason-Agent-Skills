@@ -1,0 +1,4 @@
+interface:
+  display_name: "Rokid 图文发布"
+  short_description: "上传 Word 图文到 Rokid 论坛，补图对位、恢复标题层级并验证发布结果"
+  default_prompt: "使用 $rokid-article-publisher 将文章发布到 Rokid 论坛或修复原帖图片与排版，并验证保存后的结果。"

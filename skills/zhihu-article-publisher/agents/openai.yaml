@@ -1,0 +1,4 @@
+interface:
+  display_name: "知乎图文发布"
+  short_description: "从 Word、TXT 或 Markdown 发布知乎文章，保留章节、代码与配图位置"
+  default_prompt: "请使用 $zhihu-article-publisher 将指定文章发布到知乎，保留标题和图文顺序，并核验正式页面。"

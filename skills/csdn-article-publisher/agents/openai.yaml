@@ -1,0 +1,4 @@
+interface:
+  display_name: "CSDN 图文发布与图片修复"
+  short_description: "将 Word 图文上传至 CSDN，逐图校对位置并区分草稿、审核与公开状态"
+  default_prompt: "使用 $csdn-article-publisher 将我指定的文章上传到 CSDN，保留原文并核对所有图片的位置和发布状态。"

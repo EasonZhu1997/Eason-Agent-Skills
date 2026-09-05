@@ -1,0 +1,4 @@
+interface:
+  display_name: "蓝墨纸绘"
+  short_description: "把技术架构、工作流程与关系时间线绘成蓝墨手绘纸张信息图"
+  default_prompt: "Use $blue-ink-paper-diagram to turn this project architecture into a blue-ink hand-drawn paper infographic."

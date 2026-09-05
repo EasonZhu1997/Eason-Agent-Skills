@@ -1,0 +1,4 @@
+interface:
+  display_name: "掘金图文发布"
+  short_description: "从 Word、TXT 或 Markdown 发布到掘金，保留配图位置与章节格式"
+  default_prompt: "请使用 $juejin-article-publisher 将指定文章发布到掘金，保留标题、图文顺序和代码格式，并核验发布结果。"
