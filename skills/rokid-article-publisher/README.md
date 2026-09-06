@@ -1,6 +1,6 @@
 # Rokid 图文发布技能分享包
 
-把 Word 或 HTML 文章发布到 Rokid 开发者论坛；也可给原帖补图、校正图片位置、恢复标题层级与代码块。它是一套让 AI 按步骤执行、检查和交付的工作说明，不是免登录上传程序，也不保证平台审核或活动奖励。
+把 Word、TXT、MD / Markdown 或 HTML 文章发布到 Rokid 开发者论坛；也可给原帖补图、校正图片位置、恢复标题层级与代码块。它是一套让 AI 按步骤执行、检查和交付的工作说明，不是免登录上传程序，也不保证平台审核或活动奖励。
 
 ## 如何交给别人使用
 
@@ -17,6 +17,10 @@
 
 > 使用 $rokid-article-publisher。修复我指定的 Rokid 原帖，只补图和调整排版，不新建帖子，不改标题和正文措辞。保留我在网页中做过的修改。若 Word 与原帖有差异，先标出来再处理。
 
+> 使用 $rokid-article-publisher。把 article.md 发布到我指定的 Rokid 论坛板块。配图文件夹与 Markdown 一起提供；保留标题、列表、代码和图注位置，先上传到论坛原生图床，再转成兼容富文本。遇到混排或表格内图片，先说明需要规范的地方，不直接丢图。
+
+> 使用 $rokid-article-publisher。准备 article.txt 的论坛稿，保留原文连续空格、缩进、空行和字面符号，不把它擅自当成 Markdown；先给我本地预览，不发布。
+
 > 使用 $rokid-article-publisher。先准备本地发布材料并校验，不要登录网站、上传或发布。
 
 提供：源文件、目标网站或原帖链接、新发还是修改、是否现在发布、目标板块。账号登录、验证码、缺少的个人资料由使用者完成或明确提供。
@@ -25,10 +29,15 @@
 
 - `SKILL.md`：工作流程与适用边界。
 - `references/`：Rokid 编辑器的实测兼容说明及检查方法。
-- `scripts/`：Word 图片清单、HTML 图片映射等纯本地助手及合成测试。
+- `scripts/`：Word 图片清单、原 HTML 图片映射、TXT / MD 预处理、MD 图片回填和 Rokid 兼容富文本助手，以及合成测试。
+- `requirements-render.txt`：仅 Markdown 转富文本所需的固定版本依赖。
 - `agents/openai.yaml`：技能显示信息。
 
-脚本不会联网、登录或点击发布，只需 Python 3.9+ 标准库；具体命令见技能正文。脚本输出是核对材料，不等于网页上传成功。
+脚本不会联网、登录或点击发布。Word 清单、原 HTML 映射、TXT 纯文本路线和 MD 预处理 / 图片回填只需 Python 3.9+ 标准库；MD 转富文本另需 `markdown-it-py==3.0.0`，按 [富文本说明](references/richtext.md) 在适当虚拟环境安装。依赖安装会访问包源，转换脚本本身不联网；浏览器打开带图预览时可能加载已上传的图片。
+
+TXT 默认使用 `render_richtext.py --literal-txt`；只有明确写成 Markdown 的 TXT 才使用 `prepare_text.py --txt-as-markdown`。MD 支持标题、列表、引用、表格、代码与独立图片段；混排、列表 / 表格内图片、链接包图会暂停，需在工作副本规范或用原生编辑器插入。没有承诺把任意 Markdown 扩展无损一键导入。
+
+所有 MD 图片须经论坛原生上传，回填和渲染时均使用实际观察到的精确 `--allow-host`，没有默认图床放行。MD 的 `RK_IMAGE` 清单与 Word / HTML 的 `IMAGE_1` 清单相互独立，不能混用。脚本输出是核对材料，不等于网页上传成功。运行与检查命令见 [SKILL.md](SKILL.md)；测试范围见 [验证记录](references/validation.md)。
 
 ## 分享与隐私
 

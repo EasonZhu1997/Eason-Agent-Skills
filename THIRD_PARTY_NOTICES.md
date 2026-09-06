@@ -9,7 +9,7 @@
 ## 依赖与外部说明
 
 - Python、Node.js 及第三方解析器是独立依赖，不作为本仓库原创内容重新授权。
-- 知乎 Markdown 渲染使用 `markdown-it-py`；安装时取得的包及其传递依赖适用各自许可，见包内 LICENSE 与官方项目。可选测试依赖如 `html5lib` 同理。
+- CSDN、Rokid 和知乎的 Markdown 富文本渲染使用 `markdown-it-py`；安装时取得的包及其传递依赖适用各自许可，见包内 LICENSE 与官方项目。可选测试依赖如 `html5lib` 同理。
 - 部分 Word 中间稿路线可使用用户已安装的 Pandoc。本仓库不捆绑 Pandoc，不把它的许可改为 MIT。
 - 引用的 OpenAI、平台及工具文档均链接到原来源，没有将完整第三方手册作为本仓库自有内容发布。
 

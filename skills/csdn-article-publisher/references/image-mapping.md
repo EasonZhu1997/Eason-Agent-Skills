@@ -1,5 +1,7 @@
 # Word 原图与网页位置清单
 
+本文件仅用于 `docx_inventory.py` 与 `repair_html.mjs` 的 Word / HTML 修复路线。TXT / Markdown 的图片清单使用 `CS_IMAGE` 占位及对象值映射，见 [md-image-mapping.md](md-image-mapping.md)；两者虽然都称 `manifest.json`，结构与消费者不同，必须分目录保存，不能互换。
+
 ## 提取
 
 在技能目录运行（输出选一个新的任务目录）：

@@ -1,6 +1,6 @@
 ---
 name: rokid-article-publisher
-description: 将 Word 或 HTML 图文稿上传到 Rokid 论坛，修复原帖缺图、图片错位和标题排版，并在保存或发布后刷新核对。适用于论坛文章编辑，不用于 AIUI 应用打包或平台提审。
+description: 将 Word、TXT、Markdown 或 HTML 图文稿发布到 Rokid 论坛，保留配图位置与正文格式，修复原帖缺图和标题排版，并在保存后刷新核对。不用于 AIUI 应用打包或平台提审。
 ---
 
 # Rokid 图文发布
@@ -16,7 +16,19 @@ description: 将 Word 或 HTML 图文稿上传到 Rokid 论坛，修复原帖缺
 
 浏览器工作前阅读 [编辑器操作与校验](references/rokid-editor.md)。所有线上写入经当前工具支持的 CUA 用户界面完成；先读工具返回的实际能力文档。DOM `evaluate` 仅作只读检查，不用它改变正文、触发隐藏接口或调用编辑器内部状态。
 
-## 源稿与图片清单
+## 按源文件选择路线
+
+- `.txt` 默认按纯文本保真：先读 [富文本转入](references/richtext.md)，运行 `render_richtext.py --literal-txt`，不把 `#`、反引号或图片写法当作 Markdown。原空格、制表符与空行有独立基线；无需图片主机授权或 Markdown 依赖。
+- `.md` / `.markdown`：先读 [文本预处理](references/text-input.md)，运行 `prepare_text.py`。解决 `blocking_issues`，按 [MD 图片回填](references/md-image-mapping.md) 原生上传和回填，再读 [富文本转入](references/richtext.md)，生成可检查的 HTML。只有用户确认 TXT 实际采用 Markdown 语法时才用 `--txt-as-markdown`。
+- `.docx` 或已有 HTML：继续使用下方 Word 清单与原 `fill_image_map.py` 路线，不因新增格式而转换或覆盖旧稿。
+
+两套清单不可混用：Markdown 使用 `{{RK_IMAGE_0001}}`、`prepare_text.py` 清单、`finalize_images.py`；Word/HTML 使用 `{{IMAGE_1}}`、`docx_inventory.py` 清单、`fill_image_map.py`。禁止改几个字段强行互转。
+
+Markdown 的图片主机默认全部拒绝；每个主机须来自本次论坛原生上传并实际显示，分别向 `finalize_images.py` 和 `render_richtext.py` 传入同一精确小写 `--allow-host`，不自动信任 Rokid、其他平台或云存储的整域及子域。没有图片时不需要该参数，也可用空对象映射完成回填。
+
+Rokid 的历史粘贴过滤曾清理包在 `<p>` 内的图。MD 渲染器按解析后的 token 只把顶层、单图、独立图片段转为正文顶层 `<img width="100%">`，保留 alt/title、顺序和邻接图注。混排、链接包图、列表、引用、表格中的图片会明确阻断；先在经核对的副本规范结构，或用原生编辑器逐块插入，不任意拆开改变含义。MD 源码或图片占位稿不能直接当成已经排好版的正文发布。
+
+## Word / HTML 源稿与图片清单
 
 Word 可以用本技能的标准库脚本提取图片和相邻正文：
 
@@ -34,7 +46,7 @@ python3 scripts/docx_inventory.py --source article.docx --out extracted-article
 2. 每次或每批上传前后记录新增图片及地址，建立源图片序号到论坛原生托管地址的映射。批量完成顺序可能变化，不能按返回顺序配图。不能使用其他内容平台的热链代替上传。
 3. 按源稿的图片位置、图注和前后文归位。候选锚点重复时先消歧；仍无法唯一确定就停下，不猜位置。
 4. 若需要准备兼容的富文本片段，当前已验证的形式是正文层级的 `<img width="100%">`。图片套在 `<p>` 等容器中曾被粘贴过滤；先做小范围兼容验证，再处理全文。不要凭旧经验断定所有编辑器版本行为相同。
-5. 用纯本地助手替换已确认位置的 `{{IMAGE_1}}` 等占位符。它只改图片 `src`，保留其他 HTML 字符；不会上传、保存或发布。
+5. Word/HTML 路线用纯本地助手替换已确认位置的 `{{IMAGE_1}}` 等占位符。它只改图片 `src`，保留其他 HTML 字符；不会上传、保存或发布。Markdown 路线改用 [MD 图片回填](references/md-image-mapping.md)，不调用此助手。
 
 ```bash
 python3 scripts/fill_image_map.py \
@@ -63,8 +75,9 @@ python3 scripts/fill_image_map.py \
 ## 离线自检
 
 ```bash
-python3 -B scripts/test_docx_inventory.py
-python3 -B scripts/test_fill_image_map.py
+python3 -B -m unittest discover -s scripts -p 'test_*.py' -v
 ```
+
+脚本最低 Python 3.9；Word、TXT、MD 预处理和图片回填使用标准库。仅 MD 转富文本需要 `requirements-render.txt` 中的 `markdown-it-py`；缺依赖的对应测试会跳过，不能把跳过汇报成通过。可选测试依赖及验证范围见 [验证记录](references/validation.md)。
 
 测试仅使用临时目录里的合成文档和示例域名，不触碰论坛账号或真实帖子。技能包只保留通用脚本和说明，不收入运行时正文、图片、截图、上传映射或浏览器快照。

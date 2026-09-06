@@ -8,13 +8,15 @@
 
 | 技能 | 用途 | 使用说明 |
 | --- | --- | --- |
-| CSDN 图文发布 | Word 图文发布、配图位置与 HTML 修复、正式页核验 | [说明](skills/csdn-article-publisher/README.md) |
-| Rokid 论坛图文发布 | Word 图文发帖、图片映射与标题层级恢复 | [说明](skills/rokid-article-publisher/README.md) |
+| CSDN 图文发布 | Word、TXT、Markdown 图文发布，Markdown / 富文本录入与图片修复 | [说明](skills/csdn-article-publisher/README.md) |
+| Rokid 论坛图文发布 | Word、TXT、Markdown 图文发帖，论坛图片结构与标题层级恢复 | [说明](skills/rokid-article-publisher/README.md) |
 | 掘金图文发布 | TXT、Markdown、Word 中间稿，原生传图与 Markdown 编辑器校对 | [说明](skills/juejin-article-publisher/README.md) |
 | 知乎图文发布 | Word 原生导入、TXT 原文保真、Markdown 富文本转换与发布校对 | [说明](skills/zhihu-article-publisher/README.md) |
 | 蓝墨纸绘 | 暖白纸张、黑色线稿、蓝墨标注与少量黄色强调的关系图、流程图和架构图 | [技能](skills/blue-ink-paper-diagram/SKILL.md) |
 
 各技能支持的格式与限制以其说明为准，不把某一平台的按钮、图床域名或编辑器规则套用于其他平台。
+
+四个发布技能均支持 `.txt`、`.md` / `.markdown` 和 `.docx` 来源。纯 TXT 默认保留字面文字，不擅自把首行改为标题；配图 Markdown 按出现位置清点并原生上传。复杂嵌套图片、公式或外链等仍需按各平台说明规范与核对，不等于支持所有编辑器扩展。
 
 ## 快速开始
 
@@ -39,13 +41,21 @@
 ```
 
 ```text
+使用 $csdn-article-publisher，把 article.md 和同目录 images 中的图片整理到 CSDN 草稿，按当前编辑器选择 Markdown 或富文本录入。
+```
+
+```text
+使用 $rokid-article-publisher，把 article.txt 整理到 Rokid 论坛草稿，保留连续空格、缩进和换行，先不要发布。
+```
+
+```text
 使用 $blue-ink-paper-diagram，把我提供的流程画成蓝墨纸绘风格，准确区分开发、实测与发布。
 ```
 
 ## 环境与边界
 
 - 辅助脚本通常使用 Python 3.9+；CSDN 的 HTML 助手需要 Node.js，具体依赖见各技能说明。
-- 知乎 Markdown 富文本转换需要 `markdown-it-py`。仅在合适的虚拟环境安装所需依赖，不将环境、依赖源码或登录态打进技能目录。
+- CSDN、Rokid 和知乎的 Markdown 富文本转换需要 `markdown-it-py`；其纯 TXT 路线只使用标准库。CSDN 的 Markdown 编辑器路线不必先渲染 HTML。仅在合适的虚拟环境安装所需依赖，不将环境、依赖源码或登录态打进技能目录。
 - 发布需要用户自己的账号、当前可用的浏览器交互工具，以及本次明确的上传 / 发布授权。技能不包含 Cookie、密钥、账号、真实文章或图片托管签名。
 - 蓝墨纸绘需要宿主提供图片生成能力。本仓库不附带来源授权未明确的历史参考图片，文字风格规范可独立使用；用户也可以提供有权使用的参考图。
 - 本地脚本成功不等于平台保存或发布成功。图片顺序、图注、代码、标题、链接和正式页状态仍需逐项验证。

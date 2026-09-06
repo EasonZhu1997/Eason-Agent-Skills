@@ -62,6 +62,8 @@
 
 ## 离线模板与映射
 
+本节保留原有 Word / HTML 路线：`docx_inventory.py` 清单、`{{IMAGE_1}}` 和 `fill_image_map.py`。新增 MD 路线使用 `{{RK_IMAGE_0001}}`、`prepare_text.py` / `finalize_images.py`，见 [MD 图片回填](md-image-mapping.md)；两套 schema 和映射不可混用。TXT 的默认纯文本路线与 MD 富文本兼容范围见 [富文本转入](richtext.md)。
+
 `docx_inventory.py` 仅用 Python 标准库读取 Word，输出 `manifest.json` 和 `media/`。它拒绝危险 ZIP 路径和非空输出目录，不下载外部引用。浮动图仅能按 XML 锚点顺序记录，需要可视检查；候选图注也不能自动当作最终位置。
 
 Manifest 的核心字段如下。真正运行时图片数量从源稿得出，示例只展示结构：
