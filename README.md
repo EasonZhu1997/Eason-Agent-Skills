@@ -8,11 +8,12 @@
 
 | 技能 | 用途 | 使用说明 |
 | --- | --- | --- |
-| CSDN 图文发布 | Word、TXT、Markdown 图文发布，Markdown / 富文本录入与图片修复 | [说明](skills/csdn-article-publisher/README.md) |
+| CSDN 图文发布 | Word、TXT、Markdown 发布与图片修复，按需通过官方助手同步掘金、知乎 | [说明](skills/csdn-article-publisher/README.md) |
 | Rokid 论坛图文发布 | Word、TXT、Markdown 图文发帖，论坛图片结构与标题层级恢复 | [说明](skills/rokid-article-publisher/README.md) |
 | 掘金图文发布 | TXT、Markdown、Word 中间稿，原生传图与 Markdown 编辑器校对 | [说明](skills/juejin-article-publisher/README.md) |
 | 知乎图文发布 | Word 原生导入、TXT 原文保真、Markdown 富文本转换与发布校对 | [说明](skills/zhihu-article-publisher/README.md) |
 | 蓝墨纸绘 | 暖白纸张、黑色线稿、蓝墨标注与少量黄色强调的关系图、流程图和架构图 | [技能](skills/blue-ink-paper-diagram/SKILL.md) |
+| 架构图设计能力 | 分层系统总览、跨层业务流程与可编辑 SVG 图表 | [说明](skills/architecture-diagram-design/README.md) |
 
 各技能支持的格式与限制以其说明为准，不把某一平台的按钮、图床域名或编辑器规则套用于其他平台。
 
@@ -45,11 +46,19 @@
 ```
 
 ```text
+使用 $csdn-article-publisher，将已确认的 CSDN 文章同步到掘金和知乎，优先用官方同步助手；逐站核对图片与格式，先只保存草稿。
+```
+
+```text
 使用 $rokid-article-publisher，把 article.txt 整理到 Rokid 论坛草稿，保留连续空格、缩进和换行，先不要发布。
 ```
 
 ```text
 使用 $blue-ink-paper-diagram，把我提供的流程画成蓝墨纸绘风格，准确区分开发、实测与发布。
+```
+
+```text
+使用 $architecture-diagram-design，根据项目资料先画分层架构总览，再叠加一条跨层业务流程。保留可编辑 SVG，所有未确认的部署关系标为待核实。
 ```
 
 ## 环境与边界
@@ -58,8 +67,9 @@
 - CSDN、Rokid 和知乎的 Markdown 富文本转换需要 `markdown-it-py`；其纯 TXT 路线只使用标准库。CSDN 的 Markdown 编辑器路线不必先渲染 HTML。仅在合适的虚拟环境安装所需依赖，不将环境、依赖源码或登录态打进技能目录。
 - 发布需要用户自己的账号、当前可用的浏览器交互工具，以及本次明确的上传 / 发布授权。技能不包含 Cookie、密钥、账号、真实文章或图片托管签名。
 - 蓝墨纸绘需要宿主提供图片生成能力。本仓库不附带来源授权未明确的历史参考图片，文字风格规范可独立使用；用户也可以提供有权使用的参考图。
+- 架构图设计能力附带通用假设示例、可编辑 SVG 与 PNG 预览，不复制用户参考图中的品牌 Logo、网址或未经核实的产品参数；修改 SVG 后应重新渲染并检查文字、箭头和边界。
 - 本地脚本成功不等于平台保存或发布成功。图片顺序、图注、代码、标题、链接和正式页状态仍需逐项验证。
-- 本仓库不会自动跨平台同步、替用户报名、填写奖励问卷或申请奖金。
+- CSDN 技能支持用户明确选择后的官方多平台同步，通常先进入掘金/知乎草稿并逐站验收；不会因发布 CSDN 自动向其他站点公开发布。官方助手需要实际可用的扩展与登录条件，详见其说明。本仓库不自动报名、填写奖励问卷或申请奖金。
 
 ## 测试
 

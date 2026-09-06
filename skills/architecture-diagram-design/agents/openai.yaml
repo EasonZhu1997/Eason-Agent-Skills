@@ -1,0 +1,4 @@
+interface:
+  display_name: "架构图设计能力"
+  short_description: "设计分层架构与跨层业务流程，清晰表达模块职责、边界和数据走向"
+  default_prompt: "使用 $architecture-diagram-design，将我提供的系统资料整理成分层架构图，并叠加一条关键业务流程。"

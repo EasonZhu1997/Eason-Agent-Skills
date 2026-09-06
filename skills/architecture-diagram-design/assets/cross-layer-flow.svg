@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title description">
+  <title id="title">边缘助手：一次请求的跨层流程</title>
+  <desc id="description">假设性示例，不代表具体产品实现。左侧橙色为调用步骤，右侧蓝色为支持组件。流程严格为1终端采集到2设备运行环境输入整理到3服务解析到4业务处理到5结果生成到6终端反馈。前向请求使用实线，结果返回使用虚线，分离布线。假设网络网关承担请求与结果转发。开发支持不进入本次在线请求链。</desc>
+  <defs>
+    <linearGradient id="page-background" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#edf6ff"/>
+    </linearGradient>
+    <linearGradient id="layer-background" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#edf4ff"/>
+      <stop offset="1" stop-color="#f8fbff"/>
+    </linearGradient>
+    <marker id="flow-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 1 1 L 9 5 L 1 9 Z" fill="#e87324"/>
+    </marker>
+    <style>
+      text { font-family: "PingFang SC", "Noto Sans CJK SC", Arial, sans-serif; }
+      .page-title { fill: #152437; font-size: 38px; font-weight: 700; }
+      .subtitle { fill: #66768b; font-size: 20px; }
+      .zone-title { fill: #233c59; font-size: 23px; font-weight: 600; }
+      .zone-detail { fill: #66768b; font-size: 18px; }
+      .layer-frame { fill: url(#layer-background); stroke: #7098ef; stroke-width: 1.5; }
+      .layer-label { fill: #3266d9; }
+      .layer-number { fill: #dce8ff; font-size: 18px; text-anchor: middle; }
+      .layer-name { fill: #ffffff; font-size: 26px; font-weight: 700; text-anchor: middle; }
+      .component { fill: #ffffff; stroke: #86a8ed; stroke-width: 1.5; }
+      .component-name { fill: #20374f; font-size: 24px; font-weight: 600; text-anchor: middle; }
+      .component-detail { fill: #64748b; font-size: 18px; text-anchor: middle; }
+      .step-card { fill: #ffffff; stroke: #ed8a48; stroke-width: 1.8; }
+      .step-number { fill: #ffffff; font-size: 20px; font-weight: 700; text-anchor: middle; }
+      .step-name { fill: #3b3029; font-size: 24px; font-weight: 600; }
+      .step-detail { fill: #6d6c71; font-size: 18px; }
+      .flow { fill: none; stroke: #e87324; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; marker-end: url(#flow-arrow); }
+      .return-flow { stroke-dasharray: 8 6; }
+      .flow-note { fill: #ad541f; font-size: 18px; }
+      .legend { fill: #63748a; font-size: 18px; }
+      .credit { fill: #536579; font-size: 20px; text-anchor: middle; }
+    </style>
+  </defs>
+
+  <rect width="1600" height="900" fill="url(#page-background)"/>
+  <text x="72" y="72" class="page-title">边缘助手：一次请求的跨层流程</text>
+  <text x="74" y="112" class="subtitle">假设性示例，不代表具体产品实现</text>
+  <rect x="1326" y="45" width="202" height="43" rx="21.5" fill="#e8f0ff"/>
+  <text x="1427" y="73" fill="#3266d9" font-size="20" font-weight="600" text-anchor="middle">跨层流程</text>
+
+  <text x="286" y="153" class="zone-title">调用步骤</text>
+  <text x="405" y="153" class="zone-detail">橙色 · 编号 1–6</text>
+  <text x="1008" y="153" class="zone-title">支持组件</text>
+  <text x="1125" y="153" class="zone-detail">蓝色 · 按职责归层</text>
+
+  <!-- Structural layers: these frames do not imply a request edge. -->
+  <g id="layer-frames">
+    <rect x="64" y="178" width="1472" height="108" rx="16" class="layer-frame" data-layer="4"/>
+    <rect x="64" y="302" width="1472" height="176" rx="16" class="layer-frame" data-layer="3"/>
+    <rect x="64" y="494" width="1472" height="136" rx="16" class="layer-frame" data-layer="2"/>
+    <rect x="64" y="646" width="1472" height="136" rx="16" class="layer-frame" data-layer="1"/>
+  </g>
+  <path d="M 982 176 V 782" stroke="#c4d5ed" stroke-width="1.5" stroke-dasharray="5 7" fill="none"/>
+  <g id="layer-labels">
+    <rect x="80" y="194" width="176" height="76" rx="10" class="layer-label"/>
+    <text x="168" y="219" class="layer-number">第 4 层</text>
+    <text x="168" y="252" class="layer-name">开发支持</text>
+    <rect x="80" y="318" width="176" height="144" rx="10" class="layer-label"/>
+    <text x="168" y="374" class="layer-number">第 3 层</text>
+    <text x="168" y="412" class="layer-name">应用与服务</text>
+    <rect x="80" y="510" width="176" height="104" rx="10" class="layer-label"/>
+    <text x="168" y="549" class="layer-number">第 2 层</text>
+    <text x="168" y="587" class="layer-name">运行环境</text>
+    <rect x="80" y="662" width="176" height="104" rx="10" class="layer-label"/>
+    <text x="168" y="701" class="layer-number">第 1 层</text>
+    <text x="168" y="739" class="layer-name">终端与网络</text>
+  </g>
+
+  <!-- Blue cards are components; they are not additional numbered steps. -->
+  <g id="supporting-components">
+    <g id="documentation" data-component="documentation" data-layer="4">
+      <rect x="1008" y="194" width="158" height="76" rx="10" class="component"/>
+      <text x="1087" y="225" class="component-name">文档</text>
+      <text x="1087" y="254" class="component-detail">规范与示例</text>
+    </g>
+    <g id="debugging-tools" data-component="debugging-tools" data-layer="4">
+      <rect x="1182" y="194" width="158" height="76" rx="10" class="component"/>
+      <text x="1261" y="225" class="component-name">调试工具</text>
+      <text x="1261" y="254" class="component-detail">验证与排错</text>
+    </g>
+    <g id="community" data-component="community" data-layer="4">
+      <rect x="1356" y="194" width="164" height="76" rx="10" class="component"/>
+      <text x="1438" y="225" class="component-name">社区</text>
+      <text x="1438" y="254" class="component-detail">交流与反馈</text>
+    </g>
+    <g id="parsing" data-component="parsing" data-layer="3">
+      <rect x="1008" y="334" width="158" height="118" rx="10" class="component"/>
+      <text x="1087" y="383" class="component-name">解析</text>
+      <text x="1087" y="419" class="component-detail">输入解释</text>
+    </g>
+    <g id="business-orchestration" data-component="business-orchestration" data-layer="3">
+      <rect x="1182" y="334" width="158" height="118" rx="10" class="component"/>
+      <text x="1261" y="383" class="component-name">业务编排</text>
+      <text x="1261" y="419" class="component-detail">规则与动作</text>
+    </g>
+    <g id="result-generation" data-component="result-generation" data-layer="3">
+      <rect x="1356" y="334" width="164" height="118" rx="10" class="component"/>
+      <text x="1438" y="383" class="component-name">结果生成</text>
+      <text x="1438" y="419" class="component-detail">输出组织</text>
+    </g>
+    <g id="device-runtime" data-component="device-runtime" data-layer="2">
+      <rect x="1008" y="510" width="248" height="104" rx="10" class="component"/>
+      <text x="1132" y="552" class="component-name">设备运行时</text>
+      <text x="1132" y="588" class="component-detail">输入整理 · 交互调度</text>
+    </g>
+    <g id="gateway-runtime" data-component="gateway-runtime" data-layer="2">
+      <rect x="1272" y="510" width="248" height="104" rx="10" class="component"/>
+      <text x="1396" y="552" class="component-name">网关运行时</text>
+      <text x="1396" y="588" class="component-detail">连接管理 · 消息转发</text>
+    </g>
+    <g id="smart-terminal" data-component="smart-terminal" data-layer="1">
+      <rect x="1008" y="662" width="248" height="104" rx="10" class="component"/>
+      <text x="1132" y="704" class="component-name">智能终端</text>
+      <text x="1132" y="740" class="component-detail">采集输入 · 呈现结果</text>
+    </g>
+    <g id="network-gateway" data-component="network-gateway" data-layer="1">
+      <rect x="1272" y="662" width="248" height="104" rx="10" class="component"/>
+      <text x="1396" y="704" class="component-name">网络网关</text>
+      <text x="1396" y="740" class="component-detail">承载终端与服务通信</text>
+    </g>
+  </g>
+
+  <g id="development-note">
+    <text x="286" y="226" fill="#536b88" font-size="23" font-weight="600">开发支持贯穿交付过程</text>
+    <text x="286" y="257" fill="#66768b" font-size="18">文档、调试与社区不作为本次在线请求步骤。</text>
+  </g>
+
+  <!-- Only these five paths are directed request edges. Forward and return channels stay separate. -->
+  <g id="request-edges">
+    <path id="edge-1-2" data-from="1" data-to="2" data-channel="forward" d="M 376 656 V 622" class="flow"/>
+    <path id="edge-2-3" data-from="2" data-to="3" data-channel="forward" d="M 376 510 V 456" class="flow"/>
+    <path id="edge-3-4" data-from="3" data-to="4" data-channel="forward" d="M 470 393 H 498" class="flow"/>
+    <path id="edge-4-5" data-from="4" data-to="5" data-channel="forward" d="M 686 393 H 714" class="flow"/>
+    <path id="edge-5-6" data-from="5" data-to="6" data-channel="return" d="M 902 393 H 934 Q 946 393 946 405 V 626 Q 946 638 934 638 H 820 Q 808 638 808 650 V 656" class="flow return-flow"/>
+  </g>
+
+  <g id="request-steps">
+    <g id="step-1" data-step="1" data-layer="1">
+      <rect x="286" y="660" width="180" height="104" rx="10" class="step-card"/>
+      <circle cx="312" cy="689" r="15" fill="#e87324"/>
+      <text x="312" y="696" class="step-number">1</text>
+      <text x="336" y="697" class="step-name">终端采集</text>
+      <text x="304" y="729" class="step-detail">获取用户输入</text>
+      <text x="304" y="751" class="step-detail">发起本次请求</text>
+    </g>
+    <g id="step-2" data-step="2" data-layer="2">
+      <rect x="286" y="514" width="180" height="104" rx="10" class="step-card"/>
+      <circle cx="312" cy="543" r="15" fill="#e87324"/>
+      <text x="312" y="550" class="step-number">2</text>
+      <text x="336" y="551" class="step-name">输入整理</text>
+      <text x="304" y="583" class="step-detail">设备运行环境</text>
+      <text x="304" y="605" class="step-detail">整理并封装输入</text>
+    </g>
+    <g id="step-3" data-step="3" data-layer="3">
+      <rect x="286" y="334" width="180" height="118" rx="10" class="step-card"/>
+      <circle cx="312" cy="363" r="15" fill="#e87324"/>
+      <text x="312" y="370" class="step-number">3</text>
+      <text x="336" y="371" class="step-name">服务解析</text>
+      <text x="304" y="405" class="step-detail">解析请求与意图</text>
+      <text x="304" y="432" class="step-detail">形成结构化输入</text>
+    </g>
+    <g id="step-4" data-step="4" data-layer="3">
+      <rect x="502" y="334" width="180" height="118" rx="10" class="step-card"/>
+      <circle cx="528" cy="363" r="15" fill="#e87324"/>
+      <text x="528" y="370" class="step-number">4</text>
+      <text x="552" y="371" class="step-name">业务处理</text>
+      <text x="520" y="405" class="step-detail">执行业务规则</text>
+      <text x="520" y="432" class="step-detail">协调任务与动作</text>
+    </g>
+    <g id="step-5" data-step="5" data-layer="3">
+      <rect x="718" y="334" width="180" height="118" rx="10" class="step-card"/>
+      <circle cx="744" cy="363" r="15" fill="#e87324"/>
+      <text x="744" y="370" class="step-number">5</text>
+      <text x="768" y="371" class="step-name">结果生成</text>
+      <text x="736" y="405" class="step-detail">组织输出内容</text>
+      <text x="736" y="432" class="step-detail">生成可展示结果</text>
+    </g>
+    <g id="step-6" data-step="6" data-layer="1">
+      <rect x="718" y="660" width="180" height="104" rx="10" class="step-card"/>
+      <circle cx="744" cy="689" r="15" fill="#e87324"/>
+      <text x="744" y="696" class="step-number">6</text>
+      <text x="768" y="697" class="step-name">终端反馈</text>
+      <text x="736" y="729" class="step-detail">显示或播报结果</text>
+      <text x="736" y="751" class="step-detail">结束本次交互</text>
+    </g>
+  </g>
+
+  <g id="gateway-assumption">
+    <text x="508" y="546" class="flow-note" font-weight="600">跨层通信假设</text>
+    <text x="508" y="575" class="flow-note">上行：请求经网络网关转发至应用服务</text>
+    <text x="508" y="603" class="flow-note">返回：生成结果经网络网关送达终端</text>
+  </g>
+
+  <g id="legend">
+    <rect x="74" y="808" width="18" height="18" rx="4" fill="#fff" stroke="#ed8a48" stroke-width="1.8"/>
+    <text x="102" y="824" class="legend">橙色：调用步骤</text>
+    <rect x="334" y="808" width="18" height="18" rx="4" fill="#fff" stroke="#86a8ed" stroke-width="1.5"/>
+    <text x="362" y="824" class="legend">蓝色：组件（背景支持）</text>
+    <path d="M 702 817 H 748" stroke="#e87324" stroke-width="3" fill="none"/>
+    <text x="760" y="824" class="legend">实线：前向请求</text>
+    <path d="M 1030 817 H 1076" stroke="#e87324" stroke-width="3" stroke-dasharray="8 6" fill="none"/>
+    <text x="1088" y="824" class="legend">虚线：结果返回（独立通道）</text>
+  </g>
+  <text x="800" y="870" class="credit">感谢 成都常顺鑫</text>
+</svg>

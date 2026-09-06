@@ -1,11 +1,11 @@
 ---
 name: csdn-article-publisher
-description: "Upload or update Word, TXT and Markdown articles in CSDN using an authorized browser, preserving text, formatting and image positions; repair missing or failed-transfer images and verify draft, review and public states. Use for CSDN article publishing and image-placement repair, not general copywriting or other publishing platforms."
+description: "Upload or update Word, TXT and Markdown articles in CSDN, preserving text, formatting and image positions; repair failed images and verify publishing states. When explicitly requested, use CSDN's official sync assistant to send the article to Juejin and Zhihu drafts, then verify each target. Not for general copywriting or unrelated standalone platform tasks."
 ---
 
 # CSDN 图文发布与图片修复
 
-把用户指定的 Word、TXT、MD / Markdown 文章上传到 CSDN，或修复已有文章的图片。成功标准是内容、图片位置和保存状态均可验证，不是仅点过发布按钮。
+把用户指定的 Word、TXT、MD / Markdown 文章上传到 CSDN，或修复已有文章的图片；用户明确选择时，也可通过 CSDN 官方同步助手分发到掘金和知乎。成功标准是各目标的内容、图片位置和保存状态均可验证，不是仅点过发布或同步按钮。
 
 ## 先确定这次任务
 
@@ -14,6 +14,7 @@ description: "Upload or update Word, TXT and Markdown articles in CSDN using an 
 - 只要求图片修复时，不顺手改文案、图片内容、风格、许可或其他平台。原图发现问题可单独说明。
 - 本技能不授予登录、发帖、权限变更或跨平台同步的新授权。执行当前用户实际要求的范围，遵循宿主的确认规则。
 - 只读请求只检查；“整理成技能”只制作技能，不顺带发布文章。
+- “发到 CSDN”默认只有 CSDN；“同步到掘金、知乎”按官方同步草稿路线执行，不自动理解为公开发布。“三个平台都正式发布”才包含目标平台的发布步骤。只要求草稿时，不能为了启用同步而先公开 CSDN 原文。
 
 ## 工具和资料入口
 
@@ -25,6 +26,7 @@ description: "Upload or update Word, TXT and Markdown articles in CSDN using an 
 - Markdown 图片原位回填：读 [references/md-image-mapping.md](references/md-image-mapping.md)。
 - 纯 TXT 保真和 Markdown 转富文本：读 [references/richtext.md](references/richtext.md)。
 - 保存、审核、公开状态和结束前检查：读 [references/verification.md](references/verification.md)。
+- 明确要求同时同步掘金、知乎：先读 [references/cross-platform-sync.md](references/cross-platform-sync.md)，检查官方同步入口、浏览器扩展和目标登录状态，再逐平台验收。
 
 所有脚本和引用均在本文件夹内。脚本只处理本地文件，不读取浏览器凭据、不调用 CSDN 私有接口、不执行发布。
 
@@ -82,6 +84,14 @@ Word / 现有 HTML 大量缺图或错位：上传齐全后，用 [scripts/repair
 按 [references/verification.md](references/verification.md) 检查图片数量、顺序、原图对应、图注位置、加载和正文保留，再执行用户授权的保存/发布。
 
 分别报告“编辑器已核对”“已保存草稿”“已提交审核”“公开页已验证”。审核未结束时不能声称已经公开完成；公开页打不开时如实说明。
+
+### 6. 可选：同步掘金与知乎
+
+本次已明确选择跨平台同步时，优先走 CSDN 官方同步助手，不先重复创建其他平台文章。它与本技能是不同工具，需要当前浏览器实际具备扩展和目标平台登录态；不能从浏览器里开着目标网页推断条件已经满足。
+
+按 [多平台同步](references/cross-platform-sync.md) 核实原文版本与目标账号，只同步选定平台，先检查生成的目标草稿。用户还授权正式发布时，再在掘金、知乎各自完成分类/话题等必要资料、排版验收和发布。同步成功不等于正式发布，更不等于审核通过。
+
+某平台失败先查同步历史和已存在的目标草稿，避免重复分发；官方路线确实不可用且用户未限定只能使用该助手时，可在原有目标、浏览器和草稿/发布范围内分平台处理。不要把 CSDN 的图床映射或 `CS_IMAGE` 清单直接交给其他平台脚本。
 
 ## 中断和交接
 
