@@ -13,7 +13,7 @@
 | 掘金图文发布 | TXT、Markdown、Word 中间稿，原生传图与 Markdown 编辑器校对 | [说明](skills/juejin-article-publisher/README.md) |
 | 知乎图文发布 | Word 原生导入、TXT 原文保真、Markdown 富文本转换与发布校对 | [说明](skills/zhihu-article-publisher/README.md) |
 | 蓝墨纸绘 | 暖白纸张、黑色线稿、蓝墨标注与少量黄色强调的关系图、流程图和架构图 | [技能](skills/blue-ink-paper-diagram/SKILL.md) |
-| 粉笔板书 | 深色黑板、白色粉笔字、彩色分区与重点结论，适用于课堂讲解、知识卡片和步骤图 | [说明](skills/chalkboard-explainer/README.md) |
+| 粉笔板书 | 黑板手绘方法论信息图，一页一个问题，支持流程、对比、模块矩阵与底部总结 | [说明](skills/chalkboard-explainer/README.md) |
 | 架构图设计能力 | 分层系统总览、跨层业务流程与可编辑 SVG 图表 | [说明](skills/architecture-diagram-design/README.md) |
 
 各技能支持的格式与限制以其说明为准，不把某一平台的按钮、图床域名或编辑器规则套用于其他平台。
