@@ -4,6 +4,8 @@
 
 如果要做深色黑板、白色粉笔字和分区讲解，可使用同仓库的 [粉笔板书](../chalkboard-explainer/README.md) 技能。
 
+如果要做近白可擦板面上的马克笔讲解，可使用 [白板手绘](../whiteboard-explainer/README.md) 技能。
+
 ## 使用
 
 让支持技能的 AI 助手读取同目录 [SKILL.md](SKILL.md)，并提供要表达的事实、节点和关系，例如：

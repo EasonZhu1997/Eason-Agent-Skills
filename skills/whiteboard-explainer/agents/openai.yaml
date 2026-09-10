@@ -1,0 +1,4 @@
+interface:
+  display_name: "白板手绘"
+  short_description: "白板马克笔风格的方法论信息图，用清晰分区、流程和总结讲透一个问题"
+  default_prompt: "使用 $whiteboard-explainer，把我提供的内容做成白板手绘方法论信息图，一页一个问题，讲清关系并提炼核心结论。"
