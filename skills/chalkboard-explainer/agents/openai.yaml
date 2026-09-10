@@ -1,0 +1,4 @@
+interface:
+  display_name: "粉笔板书"
+  short_description: "把知识与流程画成粉笔黑板图，用分区、箭头和重点结论帮助讲解"
+  default_prompt: "使用 $chalkboard-explainer，把我提供的内容整理成一张中文粉笔板书，讲清关系并突出核心结论。"
