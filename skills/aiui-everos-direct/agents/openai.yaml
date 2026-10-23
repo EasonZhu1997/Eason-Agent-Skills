@@ -1,0 +1,4 @@
+interface:
+  display_name: "AIUI 直连 EverOS"
+  short_description: "为 Rokid AIUI 开发无需 APK 的 EverOS 长期记忆接入"
+  default_prompt: "使用 $aiui-everos-direct 为我的 AIUI 智能体接入 EverOS，先确认 Cloud 或自建部署，再实现并验证记忆写入与检索。"

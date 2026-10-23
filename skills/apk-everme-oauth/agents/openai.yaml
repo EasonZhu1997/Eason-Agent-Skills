@@ -1,0 +1,4 @@
+interface:
+  display_name: "APK · EverMe OAuth 记忆接入"
+  short_description: "为 Rokid Android 陪伴应用实现账号隔离的 EverMe OAuth MCP"
+  default_prompt: "使用 $apk-everme-oauth，结合我的 Android APK 和后端，接入 EverMe 并验证授权、记忆读写和断开流程。"

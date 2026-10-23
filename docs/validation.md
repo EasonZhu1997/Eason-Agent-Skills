@@ -1,5 +1,7 @@
 # 发布前验证记录
 
+最新新增：2026-10-24 的两份 Rokid 记忆接入 Skill，见本文末尾同日记录。下方较早日期与测试数量为对应历史范围，不能作为新技能的测试结果。
+
 验证日期：2026-09-06。检查对象为本仓库发布副本；本轮补齐 CSDN、Rokid 的 TXT / Markdown 支持，并同步其桌面分享包。原有 Word 脚本与其他三个技能保持不变，替换的旧 ZIP 留有备份。
 
 ## 本地测试结果
@@ -92,3 +94,27 @@ python3 -B -m unittest discover -s skills/zhihu-article-publisher/scripts -p 'te
 - PNG 实际尺寸为 1659 × 948（7:4），保留工具输出，未宣称为严格 16:9。生成记录注明默认设计比例与本张实际比例的差异，并核对文件 SHA-256。此图是位图示例，不是可编辑 SVG/PPT，也不是实际项目完成证据。
 
 本轮验证限定为新技能、引用说明与这张示例。四个平台的发布脚本未改变，没有重新执行旧的 480 项回归，也没有执行真实平台发帖。
+
+## 2026-10-24：AIUI × EverOS 与 APK × EverMe
+
+新增 `aiui-everos-direct`、`apk-everme-oauth` 两份独立开发 Skill，更新根目录索引、路线选择说明和第三方来源。参考了作者已有 AIUI/APK 工程，但公开内容为通用接法、原创说明和合成示例；不发布应用私有源码、生产配置、凭据或用户记忆。
+
+实际检查：
+
+- 两份 Skill 均通过 skill-creator 的 `quick_validate.py`；YAML 元数据、包内链接、6 个 JSON 示例、公开 RFC 7636 PKCE 向量和 MIT 许可证副本通过检查。
+- AIUI 参考适配器在 Node.js 24.14.0 下执行 **17 项测试，17 通过、0 失败、0 跳过**。覆盖请求身份与作用域、202 保留、中文 UTF-8、HTTP/JSON 错误、迟到响应、超时、abort 竞态、解析后对象大小/深度/节点预算及 Retry-After。
+- `node --check` 与 `git diff --check` 通过。新增文本扫描未发现私人绝对路径、已知私有业务域名或常见真实凭据模式；人工核对示例仅含合成数据和公开官方地址。这不等于扫描能穷尽所有秘密模式。
+- EverMe 两个官方 OAuth discovery 端点无凭据 GET 均返回 HTTP 200，字段与参考文档一致。未注册 client、获取 token、调用远程记忆工具或写入真实数据。
+- 独立前向演练覆盖“多人 AIUI 分发、202 后空检索、账号切换迟到结果”以及“Android 切账号、刷新结果未知、sending 队列、解绑”。据反馈补齐已解析 JSON 限额、可用的 Retry-After，以及未知 refresh 后旧 token revoke 200 不能证明整条授权已撤销的说明。
+
+可复验命令（从仓库根目录执行）：
+
+```sh
+node --test skills/aiui-everos-direct/scripts/everos-client.test.mjs
+node --check skills/aiui-everos-direct/assets/everos-client.mjs
+git diff --check
+```
+
+EverOS 与 AIUI 官方源码版本固定在技能的来源文件中；Cloud 在线资料可能继续更新。飞书通用手册本次无法直接读取，已标注该限制；远程 MCP 的认证后 schema 仍需实施者自行发现，不能用公开 CLI/plugin schema 冒充。
+
+本轮没有修改或部署应用、构建 AIX/APK、安装应用、运行真实授权/记忆闭环或操作眼镜。上述是 Skill 与参考模块的验证，不能称为某款设备已通过集成验收。原有发布类技能和其脚本保持不变，未重跑历史 480 项回归。

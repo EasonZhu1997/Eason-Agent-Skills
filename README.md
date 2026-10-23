@@ -1,6 +1,6 @@
 # Eason Agent Skills
 
-面向内容创作、图文发布与技术表达的个人 AI 技能库。作者：Eason（[EasonZhu1997](https://github.com/EasonZhu1997)）。
+面向内容创作、图文发布、技术表达与 Rokid AI 应用开发的个人 AI 技能库。作者：Eason（[EasonZhu1997](https://github.com/EasonZhu1997)）。
 
 每个技能都是独立目录，包含 `SKILL.md`，以及该流程需要的参考说明、辅助脚本和测试。它们帮助支持技能的 AI 助手完成工作，**不是双击即可自动登录、上传或发布的软件**。
 
@@ -16,8 +16,12 @@
 | 粉笔板书 | 黑板手绘方法论信息图，一页一个问题，支持流程、对比、模块矩阵与底部总结 | [说明](skills/chalkboard-explainer/README.md) |
 | 白板手绘 | 近白板面、深色马克笔字和浅色高亮，支持工作坊、流程、对比与方法论图解，附示例图 | [说明](skills/whiteboard-explainer/README.md) |
 | 架构图设计能力 | 分层系统总览、跨层业务流程与可编辑 SVG 图表 | [说明](skills/architecture-diagram-design/README.md) |
+| AIUI × EverOS 直连 | 为 AIUI 眼镜应用接入 EverOS HTTP 记忆服务，区分云版、自建版与旧接口迁移 | [技能](skills/aiui-everos-direct/SKILL.md) |
+| APK × EverMe OAuth | 为 Android 辅助应用接入 EverMe OAuth/MCP，将记忆能力提供给 Rokid 眼镜 | [技能](skills/apk-everme-oauth/SKILL.md) |
 
 各技能支持的格式与限制以其说明为准，不把某一平台的按钮、图床域名或编辑器规则套用于其他平台。
+
+Rokid 开发者可从 [两条记忆接入路线与调用示例](docs/rokid-memory-skills.md) 开始。这两份是帮助 AI 编程助手实施接入的开发技能，包含接口核对、应用适配和验收方法。
 
 四个发布技能均支持 `.txt`、`.md` / `.markdown` 和 `.docx` 来源。纯 TXT 默认保留字面文字，不擅自把首行改为标题；配图 Markdown 按出现位置清点并原生上传。复杂嵌套图片、公式或外链等仍需按各平台说明规范与核对，不等于支持所有编辑器扩展。
 
