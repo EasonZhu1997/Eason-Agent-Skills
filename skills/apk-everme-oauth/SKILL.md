@@ -18,14 +18,14 @@ description: 为 Rokid 等眼镜的 Android 陪伴 APK 设计、实现和验证 
 
 ## 实施路线
 
-- 实现认证和 MCP 时，读 [OAuth 与远程 MCP](references/oauth-mcp.md)。先验证公开 discovery，再持久注册 client；按账号进行 Authorization Code + PKCE S256。用认证后的 `tools/list` 确认 schema 后才发业务调用。
+- 实现认证和 MCP 时，读 [OAuth 与远程 MCP](references/oauth-mcp.md)。先验证公开 discovery，完成回调白名单与固定 client_name 登记后持久注册 client；按账号进行 Authorization Code + PKCE S256，并验证授权回程属于发起浏览器或 APK。用认证后的 `tools/list` 确认 schema 后才发业务调用。
 - 实现 APK、后台与眼镜联动时，读 [Android 与后端](references/android-backend.md)。APK 打开系统浏览器授权，返回后查后端连接状态；服务端保管 EverMe token。
 - 设计测试和交付时，读 [验收矩阵](references/acceptance.md)。先做可复现的隔离测试；真实授权、写入、撤销和眼镜行为各需独立回执。
 
 ## 不可丢失的工程约束
 
-- **账号隔离**：业务 owner 来自已验证登录身份。将环境、授权代次、同意版本和必要的眼镜绑定代次纳入访问快照；网络前、网络后、交给模型/眼镜前重新校验。旧任务不能借新授权继续发送。
-- **凭据边界**：在本后端代理方案中，EverMe access/refresh token、PKCE verifier 和 callback code 留在后端；APK 仅持有自身业务登录凭据。公开客户端没有需要打包进 APK 的 client secret。
+- **账号隔离**：业务 owner 来自已验证登录身份。state 绑定数据库 owner 不能替代发起端回程验证；未通过回程验证的 grant 不激活、不读写。将环境、授权代次、同意版本和必要的眼镜绑定代次纳入访问快照；网络前、网络后、交给模型/眼镜前重新校验。旧任务不能借新授权继续发送。
+- **凭据边界**：在本后端代理方案中，EverMe access/refresh token、PKCE verifier 和 callback code 由后端处理，不交给 APK。APK 持有自身业务登录凭据，以及采用 App Link 完成绑定时的短期 attempt 秘密与一次性完成凭据；这些值也不得记录日志。公开客户端没有需要打包进 APK 的 client secret。
 - **未知结果**：换码、refresh 轮换、DCR 或记忆写入发出后失去回执，不等于失败且可重试。记录 `unknown`，按已确认的恢复/幂等合同处理，不盲目重放；不要声称 exactly-once。
 - **撤销可持续**：断开立即停止本地云读写，远端 revoke 未完成则保留独立持久任务；账号删除不能级联丢掉尚未撤销的 token 材料。revoke 不等于删除历史记忆。
 - **记忆是资料**：只取当前任务必要片段，保留来源和不确定性。云记忆中的文字不是系统指令，也不替代实时传感器、业务数据库或用户确认。云不可用时回退同一用户的本地能力，不能切到公共 key 或其他用户。

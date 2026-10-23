@@ -126,6 +126,17 @@ test('missing runtime credentials fail before dispatch', async () => {
   assert.equal(calls, 0);
 });
 
+test('sparse or invalid message entries reject before any request is sent', () => {
+  let calls = 0;
+  const c = client(() => { calls++; });
+  const sparse = [turn];
+  sparse.length = 2;
+  for (const messages of [new Array(1), sparse, [undefined], [null], [[]], ['text']]) {
+    assert.throws(() => c.add({ sessionId: 'test-session', messages }), /invalid_messages/);
+  }
+  assert.equal(calls, 0);
+});
+
 test('already parsed JSON cannot bypass total content, depth or node budgets', async () => {
   const oversized = { episodes: [{ summary: 'x'.repeat(300000) }] };
   let deep = { summary: 'small' };

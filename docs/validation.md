@@ -115,6 +115,16 @@ node --check skills/aiui-everos-direct/assets/everos-client.mjs
 git diff --check
 ```
 
-EverOS 与 AIUI 官方源码版本固定在技能的来源文件中；Cloud 在线资料可能继续更新。飞书通用手册本次无法直接读取，已标注该限制；远程 MCP 的认证后 schema 仍需实施者自行发现，不能用公开 CLI/plugin schema 冒充。
+EverOS 与 AIUI 官方源码版本固定在技能的来源文件中；Cloud 在线资料可能继续更新。初次发布时飞书通用手册无法直接读取；同日二次复核已读取，修订记录见下节。远程 MCP 的认证后 schema 仍需实施者自行发现，不能用公开 CLI/plugin schema 冒充。
 
 本轮没有修改或部署应用、构建 AIX/APK、安装应用、运行真实授权/记忆闭环或操作眼镜。上述是 Skill 与参考模块的验证，不能称为某款设备已通过集成验收。原有发布类技能和其脚本保持不变，未重跑历史 480 项回归。
+
+### 同日二次复核：OAuth 回程、供应方前置条件与消息校验
+
+本次通过浏览器读取飞书手册正文（文内版本 2026-09-18），并分别审阅 AIUI/EverOS 合同、EverMe/OAuth 合同与适配器边界行为。修订以下已确认问题：
+
+- 补齐授权结果与原浏览器会话或原 APK 的回程绑定。后端保存 state、PKCE 与 owner 关联后直接激活授权，会留下转发合法授权 URL 导致账号错绑的设计缺口；现在要求回程验证，并给出 pending grant、一次性 App Link 完成凭据与原 APK 秘密共同验证的方案及反例验收。此为设计审查，未声称复现了真实应用漏洞。
+- 将各环境回调白名单登记与约定的固定 client_name 明确为 DCR 前置条件；补齐实际授权 scope、refresh 轮换与重放、revoke 语义、MCP 业务错误分流和工具的 Profile/轨迹区别。手册说明仍须由目标服务的实际 discovery、认证后 schema 与联调结果确认。
+- 修复 AIUI 示例使用 `Array.map` 跳过稀疏数组空槽、发出 `messages:[null]` 的问题。现在遍历并验证每一项，异常输入在发送前拒绝；新增回归覆盖空槽、混合空槽、undefined、null、数组与文本消息项，断言未发出网络请求。
+
+修订后 AIUI 适配器测试为 **18 项通过、0 失败、0 跳过**，使用上节相同命令。两份 Skill 结构、YAML、7 个 JSON 示例、相对引用、许可证与常见敏感模式检查通过；Node 语法和 diff 空白检查通过。官方关键资料链接已核对，短暂网络失败的 GitHub 链接通过仓库 API 补查。本次只更新分享材料和对应 ZIP，仍未运行真实 OAuth、记忆读写、APK/AIX 构建或眼镜验收。

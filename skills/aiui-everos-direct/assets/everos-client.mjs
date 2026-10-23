@@ -168,7 +168,11 @@ export function createEverosClient({
       if (!Array.isArray(messages) || !messages.length || messages.length > 500) {
         throw new Error('invalid_messages');
       }
-      const normalized = messages.map(({ role, timestamp, content }) => {
+      const normalized = Array.from(messages, message => {
+        if (!message || typeof message !== 'object' || Array.isArray(message)) {
+          throw new Error('invalid_messages');
+        }
+        const { role, timestamp, content } = message;
         if (role !== 'user' && role !== 'assistant') throw new Error('invalid_role');
         if (!Number.isSafeInteger(timestamp) || timestamp < 1000000000000) {
           throw new Error('invalid_millisecond_timestamp');
