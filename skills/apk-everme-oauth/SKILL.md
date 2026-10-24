@@ -3,6 +3,9 @@ name: apk-everme-oauth
 description: 为 Rokid 等眼镜的 Android 陪伴 APK 设计、实现和验证 EverMe OAuth MCP 记忆接入，覆盖自有后端代理、PKCE、账号绑定、刷新撤销和持久写入队列。适用于 APK 接 EverMe；不用于 AIUI 直接接 EverOS，或仅给桌面 Agent 安装 EverMe 插件。
 ---
 
+> 最新维护版本已迁至独立仓库：[Rokid-EverMind-Skills](https://github.com/EasonZhu1997/Rokid-EverMind-Skills/tree/main/skills/rokid-sdk-everme)。此目录保留为历史兼容副本；新接入请使用专属仓库。
+
+
 # APK 辅助接入 EverMe
 
 面向「Rokid 眼镜 ↔ Android APK → 自有业务后端 → EverMe」开发。它是一份社区工程 Skill，不代表 Rokid 或 EverMind 官方认证，也不假定每款眼镜运行相同 SDK。

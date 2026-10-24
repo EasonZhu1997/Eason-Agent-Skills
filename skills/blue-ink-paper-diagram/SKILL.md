@@ -5,14 +5,15 @@ description: Create accurate hand-drawn paper infographics using black ink doodl
 
 # 蓝墨纸绘
 
-Turn verified project or product relationships into a friendly photographed-paper infographic. Preserve technical truth first; apply the visual style second.
+Turn verified project or product relationships into a friendly full-bleed paper infographic. Preserve technical truth first; apply the visual style second.
+
+Default to a clean warm-white paper background that fills the canvas. Do not include a desk or tabletop, dark outer borders, visible sheet edges, curled corners, photographic cast shadows, or a staged overhead-photo effect. Keep black pen doodles, blue handwritten labels and arrows, sparse yellow accents, and generous internal whitespace. A reference image's desk, frame, and lighting are not part of the style to copy.
 
 ## Required resources
 
 - Read [references/style-spec.md](references/style-spec.md) before generating.
 - Read [references/prompt-recipes.md](references/prompt-recipes.md) when selecting a layout or composing the final prompt.
-- This public package deliberately contains no third-party reference image. Without a user reference, generate from the written style specification and prompt recipes; do not ask for an image unnecessarily or rely on a private local file.
-- When the user provides a reference they have permission to use, treat it as style-only input: never copy its people, names, dates, map, flag, or historical content unless explicitly requested and appropriate.
+- This public package uses the written style specification; it does not redistribute the private historical reference image. If the user supplies an image they may use, treat it as style-only input: never copy its people, names, dates, map, flag, or historical content, and ignore any desk, border, or lighting.
 
 ## Workflow
 
@@ -53,13 +54,14 @@ Default to portrait when the story is primarily top-to-bottom or should resemble
 
 ### 4. Generate with the built-in image tool
 
-Use the built-in `image_gen` tool by default. With no reference, generate from the written specification and omit image-reference parameters. If the user provides an authorized reference, pass it as style input, never as an edit target unless the user explicitly requests an edit. Follow the current host's actual image tool instructions; if image generation is unavailable, return a ready-to-use prompt and clearly state that no image was generated.
+Use the built-in `image_gen` tool by default. Pass either the user reference or the bundled style reference as a reference image, never as an edit target unless the user explicitly requests an edit.
 
 Construct the prompt from [references/prompt-recipes.md](references/prompt-recipes.md). Quote every required label and state:
 
-- any supplied reference image is for style only;
+- the reference image is for style only;
 - the exact architecture and arrow directions;
-- the required orientation and paper margins;
+- the required orientation and internal whitespace;
+- a full-bleed warm-white background, with no desk, dark border, sheet edges, or photographic shadows;
 - all forbidden copied content and extra labels;
 - no logo, watermark, cropped content, or polished vector look.
 
@@ -73,6 +75,7 @@ View the generated image at original detail and check:
 - branches do not imply false sequencing;
 - all Chinese text and English acronyms are legible and correctly spelled;
 - no reference-image subject matter leaked into the new content;
+- the background fills the canvas without a desk, dark border, sheet edges, or photographic shadows;
 - no content touches or crosses the paper edge;
 - the result looks hand-drawn rather than digitally typeset.
 
@@ -94,7 +97,7 @@ Report:
 - the absolute saved path;
 - dimensions and format;
 - the final prompt or a compact faithful prompt specification;
-- which image-generation tool was actually used, or that only a prompt was prepared;
+- that built-in ImageGen was used;
 - any unresolved text or architecture caveat.
 
 ## Invocation examples

@@ -16,14 +16,11 @@
 | 粉笔板书 | 黑板手绘方法论信息图，一页一个问题，支持流程、对比、模块矩阵与底部总结 | [说明](skills/chalkboard-explainer/README.md) |
 | 白板手绘 | 近白板面、深色马克笔字和浅色高亮，支持工作坊、流程、对比与方法论图解，附示例图 | [说明](skills/whiteboard-explainer/README.md) |
 | 架构图设计能力 | 分层系统总览、跨层业务流程与可编辑 SVG 图表 | [说明](skills/architecture-diagram-design/README.md) |
-| AIUI × EverOS 直连 | 复用 JavaScript SDK 为 AIUI 接入 EverOS 记忆，包含类型、生命周期清理和回归测试 | [技能](skills/aiui-everos-direct/SKILL.md) · [SDK](skills/aiui-everos-direct/sdk/README.md) |
-| APK × EverMe OAuth | 为 Android 辅助应用接入 EverMe OAuth/MCP，将记忆能力提供给 Rokid 眼镜 | [技能](skills/apk-everme-oauth/SKILL.md) |
+| Rokid × EverMind（独立仓库） | AIUI JavaScript SDK、Rokid SDK × EverMe Skill 与中英日图文指南 | [前往专属仓库](https://github.com/EasonZhu1997/Rokid-EverMind-Skills) |
 
 各技能支持的格式与限制以其说明为准，不把某一平台的按钮、图床域名或编辑器规则套用于其他平台。
 
-Rokid 开发者可从图解入门指南开始：[简体中文](docs/rokid-memory-skills.md) · [English](docs/rokid-memory-skills.en.md) · [日本語](docs/rokid-memory-skills.ja.md)。每篇用路线选择、系统架构、授权时序和记忆流程图说明如何接入，并提供可复制的调用示例。这两份是帮助 AI 编程助手实施接入的开发技能，包含接口核对、应用适配和验收方法。
-
-AIUI 路线现在直接复用 [JavaScript SDK v0.1.0](skills/aiui-everos-direct/sdk/README.md)：复制整个 `sdk/`，通过 `createAIUIEverosClient` 接入 `wx.request`，使用 `add/search/flush/dispose`。下载见 [GitHub Release](https://github.com/EasonZhu1997/Eason-Agent-Skills/releases/tag/aiui-everos-sdk-v0.1.0)。三语指南同时链接作者公开的 [AIUI Sport 源码案例](https://github.com/EasonZhu1997/AIUI-Sports-Agents)，展示记忆适配边界与拟接线，方便从现有工程开始。
+Rokid 记忆接入方案已迁至独立的 [Rokid-EverMind-Skills](https://github.com/EasonZhu1997/Rokid-EverMind-Skills)，用于对外分享。AIUI 路线以可复用 **JavaScript SDK** 为主，Rokid SDK 路线提供眼镜端应用的 EverMe 接入 Skill；新版三语说明附 18 张蓝墨手绘图和 SDK 验证记录。本仓库保留历史发布与兼容代码，最新说明和下载请使用专属仓库。
 
 四个发布技能均支持 `.txt`、`.md` / `.markdown` 和 `.docx` 来源。纯 TXT 默认保留字面文字，不擅自把首行改为标题；配图 Markdown 按出现位置清点并原生上传。复杂嵌套图片、公式或外链等仍需按各平台说明规范与核对，不等于支持所有编辑器扩展。
 

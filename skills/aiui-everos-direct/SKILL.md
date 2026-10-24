@@ -3,6 +3,9 @@ name: aiui-everos-direct
 description: Integrate EverOS memory into Rokid AIUI agents using the bundled reusable JavaScript SDK, without a companion APK. Use for Cloud or self-hosted memory write, recall, identity scoping, lifecycle handling, and verification; use a separate OAuth/MCP workflow for EverMe personal accounts.
 ---
 
+> 最新维护版本已迁至独立仓库：[Rokid-EverMind-Skills](https://github.com/EasonZhu1997/Rokid-EverMind-Skills/tree/main/skills/aiui-everos-direct)。此目录保留为历史兼容副本；新接入请使用专属仓库。
+
+
 # AIUI 直连 EverOS
 
 帮助 AI 编程助手为 Rokid AIUI 智能体接入长期记忆。“直连”指眼镜端发起 HTTPS 请求、不依赖手机 APK 转发；仍然需要眼镜能访问的 EverOS Cloud 或受保护的自建服务。Skill 本身是开发指南，不是已安装到眼镜的运行时插件，也不代表 Rokid 或 EverMind 的官方认证。

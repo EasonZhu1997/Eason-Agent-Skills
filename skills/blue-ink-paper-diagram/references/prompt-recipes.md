@@ -7,11 +7,10 @@ Use these as scaffolding, not as a source of invented nodes.
 ```text
 Use case: infographic-diagram
 Asset type: hand-drawn paper relationship diagram
-Reference policy: If a user-authorized image is supplied, it is a STYLE REFERENCE ONLY; do not copy its subject matter or text. With no reference image, use only the written style specification below and omit image-reference parameters.
-Scene: warm off-white textured paper photographed top-down on a dark charcoal desk.
+Input image: Image 1 is a STYLE REFERENCE ONLY; do not copy its subject matter or text.
+Scene: clean warm-white paper fills the entire canvas, with only subtle paper grain; flat illustration, not a photograph.
 Style: imperfect black gel-pen doodles and cross-hatching, royal-blue handwritten labels and arrows, sparse mustard-yellow highlights.
-People and devices: modern people and contemporary devices for technical diagrams, unless the user explicitly specifies a different setting.
-Constraints: exact quoted labels, generous whitespace, visible paper margins, no logos, no watermark, no extra text, no polished vector look.
+Constraints: exact quoted labels, generous internal whitespace, no desk or tabletop, no dark outer border, no visible sheet edges or curled corners, no photographic cast shadows or overhead-photo staging, no logos, no watermark, no extra text, no polished vector look. Ignore any desk, border, and lighting in the style reference.
 ```
 
 ## Technical architecture
@@ -63,5 +62,5 @@ Use black doodles for events, blue ink for dates and relationships, and one yell
 Append this to every final prompt:
 
 ```text
-Render every quoted label verbatim with correct Chinese and English acronyms. Use large legible handwriting and no tiny paragraphs. Keep all objects and text safely inside the paper. Preserve every stated arrow direction and independence boundary. No copied subject matter from the style reference, no extra labels, no logo, no watermark.
+Render every quoted label verbatim with correct Chinese and English acronyms. Use large legible handwriting and no tiny paragraphs. Keep all objects and text safely inside the canvas. Preserve every stated arrow direction and independence boundary. The warm-white background must fill the canvas: no desk, dark outer frame, visible paper edges, curled corners, photographic shadows, or staged photo effect. No copied subject matter from the style reference, no extra labels, no logo, no watermark.
 ```
