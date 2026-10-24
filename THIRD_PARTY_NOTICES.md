@@ -9,6 +9,7 @@
 ## 依赖与外部说明
 
 - `aiui-everos-direct` 与 `apk-everme-oauth` 为原创接入指导，参考 EverMind 官方 EverOS/EverMe 文档、公开接口和作者应用实践。只提炼通用设计与合成示例，不附私有应用源码、用户记忆、生产配置或完整飞书手册。逐项来源与核对日期见技能内的 references。
+- 三语图解指南进一步参考 [EverMind-AI/Plugins](https://github.com/EverMind-AI/Plugins) 的 EverOS search/status Skill 与 EverMe 官方 memory-mcp/memory-tools Skill；固定提交链接见各语言指南。说明与 Mermaid 图为本仓库重新编写，未复制完整上游 Skill、品牌图片或插件安装脚本；不将桌面自动捕获行为视为移动应用的数据授权。图解设计参考本仓库 architecture-diagram-design，保留其设计交流致谢。
 - [EverOS](https://github.com/EverMind-AI/EverOS) 与 [EverMe](https://github.com/EverMind-AI/EverMe) 上游项目分别保留其 Apache-2.0 许可；外部 API、文档和品牌不因本仓库 MIT 许可而被重新授权。Rokid、AIUI、EverOS、EverMe、EverMind 名称仅用于说明适配对象，本仓库为社区分享，不声明官方认证或商业合作背书。
 
 - Python、Node.js 及第三方解析器是独立依赖，不作为本仓库原创内容重新授权。

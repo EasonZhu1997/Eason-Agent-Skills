@@ -128,3 +128,14 @@ EverOS 与 AIUI 官方源码版本固定在技能的来源文件中；Cloud 在�
 - 修复 AIUI 示例使用 `Array.map` 跳过稀疏数组空槽、发出 `messages:[null]` 的问题。现在遍历并验证每一项，异常输入在发送前拒绝；新增回归覆盖空槽、混合空槽、undefined、null、数组与文本消息项，断言未发出网络请求。
 
 修订后 AIUI 适配器测试为 **18 项通过、0 失败、0 跳过**，使用上节相同命令。两份 Skill 结构、YAML、7 个 JSON 示例、相对引用、许可证与常见敏感模式检查通过；Node 语法和 diff 空白检查通过。官方关键资料链接已核对，短暂网络失败的 GitHub 链接通过仓库 API 补查。本次只更新分享材料和对应 ZIP，仍未运行真实 OAuth、记忆读写、APK/AIX 构建或眼镜验收。
+
+### 同日补充：英文、日文与三语图解入门
+
+新增 `docs/rokid-memory-skills.en.md`、`docs/rokid-memory-skills.ja.md` 两个说明文件，中文入口同步扩充，README 加入三语导航。每篇包含 5 张原生 Mermaid 图：路线选择、AIUI 架构、APK 架构、OAuth 回程时序及记忆使用流程，共 15 张；图源直接保存在说明文件中。
+
+实际读取 EverMind 官方 Plugins 的 search/status Skill，以及 EverMe 的 memory-mcp/memory-tools 等 Skill。各语言指南列出固定提交和借鉴点，保留桌面插件与 AIUI/托管 OAuth 的适用差异；没有复制完整上游 Skill 或自动捕获脚本。
+
+- 英中架构与入门指引、日文表达与技术含义完成独立审阅。根据反馈补上时序图换码前的 state/attempt 校验，并修正“已接收”与“已确认可检索”的区别。
+- 使用 Mermaid CLI 12.0.0 在本地实际渲染全部 15 张图，并逐张查看文字、箭头和边界。修复英文时序图分号解析问题及 HTML 标签尾部裁切；最终图使用 SVG 文本标签。预览属于本地渲染证据，没有宣称逐页完成 GitHub 浏览器渲染验收。
+- 三语指南、README 和来源说明共 56 个相对引用通过存在性检查；代码围栏和 Mermaid 配置检查通过；两份 Skill 的结构校验均通过，`git diff --check` 通过。
+- 本轮只改说明与导航，两个 Skill 的执行代码和原有测试没有改动，未重复执行上节 18 项适配器测试，也未运行真实 OAuth、记忆读写或设备验证。
