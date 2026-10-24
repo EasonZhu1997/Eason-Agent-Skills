@@ -1,14 +1,14 @@
 # 验收：哪些证据支持哪种结论
 
-## 本地参考模块
+## 本地 SDK
 
 在 Skill 根目录执行：
 
 ```sh
-node --test scripts/everos-client.test.mjs
+node --test scripts/*.test.mjs
 ```
 
-这是注入假网络的行为测试，验证请求构造、HTTP/JSON 错误、202 保留、超时和身份失效保护；不调用 EverOS，不代表 Cloud 账号可用或眼镜宿主兼容。
+这是注入假网络的行为测试，验证请求构造、HTTP/JSON 错误、202 保留、超时、身份失效保护和 SDK 销毁行为；不调用 EverOS，不代表 Cloud 账号可用或眼镜宿主兼容。核对 `sdk/package.json` 的版本、`index.d.ts` 与实际 API；打包前用 `npm pack --dry-run` 检查 SDK 文件清单，安装或复制的内容须来自同一个已验证版本。
 
 ## 应用集成
 

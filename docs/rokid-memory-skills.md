@@ -2,6 +2,12 @@
 
 **简体中文** · [English](rokid-memory-skills.en.md) · [日本語](rokid-memory-skills.ja.md)
 
+<p>
+  <img src="assets/brand/rokid-logo-black-on-white.svg" height="64" alt="乐奇 Rokid 标准标志" />
+  &nbsp;&nbsp;
+  <img src="assets/brand/evermind-logo.png" height="64" alt="EverMind 标志" />
+</p>
+
 把长期记忆接到眼镜应用时，先选实际运行链路。本仓库提供两份可以独立复制、交给 AI 编程助手使用的 Skill，适用于新应用接入、既有项目改造和故障排查。
 
 ## 1. 先选路线
@@ -46,6 +52,8 @@ APK 路线需要先与 EverMe 登记各环境的准确回调 URL、约定固定�
 flowchart TB
     subgraph Device["Rokid 眼镜"]
         A["AIUI Page / Widget / Agent Worker"]
+        K["共用 EverOS JavaScript SDK<br/>版本 0.1.0"]
+        A -->|add / search / flush| K
     end
     subgraph Backend["你的服务边界"]
         G["已认证的记忆网关<br/>绑定用户与数据范围"]
@@ -54,7 +62,7 @@ flowchart TB
         C["EverOS Cloud v2"]
         S["受保护的自建 EverOS v2"]
     end
-    A -->|HTTPS 与应用凭据| G
+    K -->|wx.request 与应用凭据| G
     G -->|Cloud 凭据| C
     G -->|已配置的服务认证| S
     classDef component fill:#EEF4FF,stroke:#2F63E8,color:#172033
@@ -65,7 +73,34 @@ flowchart TB
 
 先实现 `search → 生成回答 → add`，需要在会话结束时提取再调用 `flush`。固定 `app_id/project_id/user_id/session_id`，原始消息时间戳使用 **Unix 毫秒**；没有 embedding 的自建服务先明确用 `keyword` 搜索。
 
-对应资料：[部署与版本](../skills/aiui-everos-direct/references/versions-and-sources.md)、[v2 请求与状态](../skills/aiui-everos-direct/references/api-v2.md)、[AIUI 适配](../skills/aiui-everos-direct/references/aiui-adapter.md)、[无密钥参考模块](../skills/aiui-everos-direct/assets/everos-client.mjs)。参考模块负责请求与响应处理，不包含你的网关、登录或持久队列。
+对应资料：[部署与版本](../skills/aiui-everos-direct/references/versions-and-sources.md)、[v2 请求与状态](../skills/aiui-everos-direct/references/api-v2.md)、[AIUI 适配](../skills/aiui-everos-direct/references/aiui-adapter.md)。
+
+### 直接复用 JavaScript SDK
+
+Skill 现在默认使用固定版本的 [AIUI EverOS SDK](../skills/aiui-everos-direct/sdk/README.md)，把 HTTP 请求、响应解析、身份检查、超时和清理集中在一份实现中。每个应用只接自己的服务地址、用户、运行时凭据和生命周期，减少重复生成与后续维护分叉。
+
+1. 从 [v0.1.0 发布页](https://github.com/EasonZhu1997/Eason-Agent-Skills/releases/tag/aiui-everos-sdk-v0.1.0) 下载 SDK，或复制整个 `skills/aiui-everos-direct/sdk/`。
+2. 放进 AIUI 项目的 `lib/everos-sdk/`，保留版本文件 `package.json` 与 `LICENSE`。
+3. 直接导入 `.js` 模块。下面是接线片段：`memoryConfig` 由应用提供，认证通过运行时回调取得。
+
+```js
+import wx from 'wx';
+import { createAIUIEverosClient } from '../../lib/everos-sdk/index.js';
+
+const memory = createAIUIEverosClient({ wx, ...memoryConfig });
+const result = await memory.search({ query: '偏好的提醒方式' });
+```
+
+`memoryConfig` 包含 `baseUrl`、`scope: {appId, projectId, userId, assistantId}`、同步返回完整 Bearer 值的 `getAuthorization()`，以及检查创建时用户/授权代次仍有效的 `isCurrent()`；可选 `timeoutMs`。这些值来自现有登录与服务配置，不能把共享 key 写进源码。
+
+| SDK 方法 | 应用负责的内容 |
+| --- | --- |
+| `search({query, method, topK})` | 只为当前用户使用限长检索结果 |
+| `add({sessionId, messages})` | 提交已获准保存的 user/assistant 消息及毫秒时间戳 |
+| `flush({sessionId})` | 在合适的会话边界请求提取 |
+| `dispose()` | 页面、用户或授权结束时清理对应实例 |
+
+Page 在 `onUnload()`、Widget 在 `onDestroy()` 调用 `dispose()`；重新使用时创建新实例。取消请求不能撤销已经发出的服务端写入。本 SDK 是本仓库维护的社区 AIUI 适配版，包名不表示已经发布到 npm。[SDK 源码](../skills/aiui-everos-direct/sdk/index.js) · [类型声明](../skills/aiui-everos-direct/sdk/index.d.ts)。
 
 ## 3. APK：使用用户自己的 EverMe 记忆
 
@@ -164,6 +199,7 @@ AIUI 调用示例：
 使用 $aiui-everos-direct，为我的 AIUI 项目接入 EverOS 长期记忆。
 不依赖手机 APK。先核对现有 AIUI 网络 API、实际 EverOS 服务版本和用户隔离，
 实现记忆写入与检索，给出可运行验证及未完成的眼镜实测项。
+直接复用包内 JavaScript SDK，只编写当前应用的认证、身份和生命周期接线。
 ```
 
 APK 调用示例：
@@ -187,7 +223,35 @@ APK 调用示例：
 | 获准的服务联调 | 正确账号、实际权限、后端回执，以及不携带原聊天上下文的新会话召回 |
 | 应用与眼镜联调 | 明确 AIX/APK 构建、固件/型号、语音与显示观察 |
 
-从仓库根目录运行 `node --test skills/aiui-everos-direct/scripts/everos-client.test.mjs` 可检查 AIUI 参考模块。这是离线测试，不是眼镜接入成功证据。三种语言说明使用同一组 Skill 标识与共享技术参考。
+从仓库根目录运行 `node --test skills/aiui-everos-direct/scripts/*.test.mjs` 可检查 SDK。这是离线测试，不是眼镜接入成功证据。三种语言说明使用同一组 Skill 标识与共享技术参考。
+
+## 6. 公开案例：AIUI Sport
+
+作者公开的源码案例 [AIUI-Sports-Agents](https://github.com/EasonZhu1997/AIUI-Sports-Agents) 提供跑步、骑行和室内划船三套 AIUI 应用。以跑步应用为例，可以从它已有的记忆接口边界理解 SDK 的接入位置：
+
+```mermaid
+%%{init: {"theme":"base","htmlLabels":false,"flowchart":{"wrappingWidth":240},"themeVariables":{"fontFamily":"Arial, sans-serif","primaryColor":"#EEF4FF","primaryTextColor":"#172033","primaryBorderColor":"#2F63E8","lineColor":"#526078"}}}%%
+flowchart TB
+    A["AIUI Sport 跑步应用<br/>已有教练与本地运动记录"]
+    B["应用记忆适配层<br/>保留原应用返回结构"]
+    C["可复用 EverOS SDK<br/>add / search / flush"]
+    D["自有认证网关<br/>EverOS Cloud 或自建服务"]
+    A -->|已有读取与保存边界| B
+    B -.->|拟接入位置| C
+    C -->|通过 wx.request 发起 HTTPS| D
+    classDef component fill:#EEF4FF,stroke:#2F63E8,color:#172033
+    classDef step fill:#FFF1E8,stroke:#E64A19,color:#172033
+    class A,C,D component
+    class B step
+```
+
+| 固定到已核对版本的公开代码 | 可以借鉴什么 |
+| --- | --- |
+| [Run / Bike / Rower 工程](https://github.com/EasonZhu1997/AIUI-Sports-Agents/tree/1f34da442a830cfa571881cd6d81cb4eee08cc84/apps) | 三套独立 AIUI 应用及其生命周期结构 |
+| [跑步应用记忆边界](https://github.com/EasonZhu1997/AIUI-Sports-Agents/blob/1f34da442a830cfa571881cd6d81cb4eee08cc84/apps/smartrun/lib/coach_api.js#L175) | 请求构造、限长 `{memories, profile}` 解析与问题上下文组装 |
+| [上传队列](https://github.com/EasonZhu1997/AIUI-Sports-Agents/blob/1f34da442a830cfa571881cd6d81cb4eee08cc84/apps/smartrun/lib/aiui_record_upload.js#L13) | FIFO、owner 检查和明确确认后才删除 |
+
+图中虚线表示新 SDK 的拟接线。该公开快照使用自己的 `memory-context / aiui-record` 后端契约，尚未迁移到本 SDK；适配时需要转换 EverOS 结果，保留原有身份和队列规则，再验证目标应用。源码案例让接入位置可检查，不把它表述成已经完成 EverMind 实服或眼镜联调的成果。
 
 ## 来源与本次分享范围
 

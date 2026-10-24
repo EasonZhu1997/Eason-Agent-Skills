@@ -1,0 +1,21 @@
+{
+  "name": "@eason/aiui-everos",
+  "version": "0.1.0",
+  "description": "Community AIUI wx.request adapter for the shared EverOS v2 memory API subset",
+  "type": "module",
+  "main": "./index.js",
+  "types": "./index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "import": "./index.js"
+    }
+  },
+  "files": ["index.js", "index.d.ts", "README.md", "LICENSE"],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/EasonZhu1997/Eason-Agent-Skills.git",
+    "directory": "skills/aiui-everos-direct/sdk"
+  }
+}

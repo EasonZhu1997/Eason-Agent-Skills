@@ -2,6 +2,12 @@
 
 [简体中文](rokid-memory-skills.md) · **English** · [日本語](rokid-memory-skills.ja.md)
 
+<p>
+  <img src="assets/brand/rokid-logo-black-on-white.svg" height="64" alt="Rokid standard logo" />
+  &nbsp;&nbsp;
+  <img src="assets/brand/evermind-logo.png" height="64" alt="EverMind logo" />
+</p>
+
 Start with your app's execution path, then build one small **recall → answer → remember** loop. These two development skills help an AI coding assistant implement the integration in your project. They do not install a memory runtime on the glasses.
 
 ## 1. Choose a route
@@ -38,6 +44,8 @@ The diagram shows the recommended arrangement for an app distributed to multiple
 flowchart TB
     subgraph Device["Rokid glasses"]
         A["AIUI Page / Widget / Agent Worker"]
+        K["Shared EverOS JavaScript SDK<br/>Version 0.1.0"]
+        A -->|add / search / flush| K
     end
     subgraph Backend["Your service boundary"]
         G["Authenticated memory gateway<br/>Bind user and data scope"]
@@ -46,7 +54,7 @@ flowchart TB
         C["EverOS Cloud v2"]
         S["Protected self-hosted EverOS v2"]
     end
-    A -->|HTTPS with app credentials| G
+    K -->|wx.request with app credentials| G
     G -->|Cloud credentials| C
     G -->|Configured service authentication| S
     classDef component fill:#EEF4FF,stroke:#2F63E8,color:#172033
@@ -57,7 +65,34 @@ For personal development, a developer may supply their own Cloud key at runtime.
 
 Build the first loop with `POST /api/v2/memory/search`, generate a reply, then submit permitted conversation events with `POST /api/v2/memory/add`. Use `flush` at a session boundary when extraction is needed. Pin `app_id`, `project_id`, user identity and session identity; raw message timestamps use **Unix milliseconds**. On a self-hosted deployment without embeddings, explicitly choose `keyword` search.
 
-Start here: [versions and deployment](../skills/aiui-everos-direct/references/versions-and-sources.md), [v2 requests and response states](../skills/aiui-everos-direct/references/api-v2.md), [AIUI adapter](../skills/aiui-everos-direct/references/aiui-adapter.md). The [reference module](../skills/aiui-everos-direct/assets/everos-client.mjs) supplies request and response handling; it does not supply your gateway, login or durable queue.
+Start here: [versions and deployment](../skills/aiui-everos-direct/references/versions-and-sources.md), [v2 requests and response states](../skills/aiui-everos-direct/references/api-v2.md), [AIUI adapter](../skills/aiui-everos-direct/references/aiui-adapter.md).
+
+### Reuse the JavaScript SDK
+
+The Skill now reuses a versioned [AIUI EverOS SDK](../skills/aiui-everos-direct/sdk/README.md) rather than generating a new HTTP client for each project. The single implementation contains request construction, response parsing, identity checks, timeouts and cleanup. Your app supplies its service address, user identity, runtime credentials and lifecycle wiring.
+
+1. Download the SDK from the [v0.1.0 release](https://github.com/EasonZhu1997/Eason-Agent-Skills/releases/tag/aiui-everos-sdk-v0.1.0), or copy the complete `skills/aiui-everos-direct/sdk/` directory.
+2. Put that directory at your AIUI project's `lib/everos-sdk/`, retaining `package.json` and `LICENSE`.
+3. Import the `.js` module and configure it. The following wiring fragment assumes the app has supplied `memoryConfig`; credentials come from its runtime callback.
+
+```js
+import wx from 'wx';
+import { createAIUIEverosClient } from '../../lib/everos-sdk/index.js';
+
+const memory = createAIUIEverosClient({ wx, ...memoryConfig });
+const result = await memory.search({ query: 'reminder preferences' });
+```
+
+`memoryConfig` contains `baseUrl`, `scope: {appId, projectId, userId, assistantId}`, a synchronous `getAuthorization()` returning the full Bearer value, and `isCurrent()` checking the captured user/authorization generation; `timeoutMs` is optional. Supply these from the app's existing login and service configuration. Keep shared keys out of source code.
+
+| SDK method | Application responsibility |
+| --- | --- |
+| `search({query, method, topK})` | Use bounded results only for the current user |
+| `add({sessionId, messages})` | Submit permitted user/assistant messages with millisecond timestamps |
+| `flush({sessionId})` | Request extraction at the appropriate session boundary |
+| `dispose()` | Release an instance when its page, user or authorization ends |
+
+Call `dispose()` in Page `onUnload()` or Widget `onDestroy()`; create a new instance when needed again. Cancellation cannot undo a write already sent. The SDK is a community AIUI adapter maintained in this repository; its package name is not a claim of an npm publication. [SDK source](../skills/aiui-everos-direct/sdk/index.js) · [Type declarations](../skills/aiui-everos-direct/sdk/index.d.ts).
 
 ## 3. APK route: use the user's EverMe account
 
@@ -160,6 +195,7 @@ Use $aiui-everos-direct to add EverOS memory to my AIUI project.
 Read docs/rokid-memory-skills.en.md and respond in English.
 Inspect the current host APIs and confirm Cloud or self-hosted v2.
 Implement one recall → reply → permitted save loop without an APK relay.
+Reuse the bundled JavaScript SDK; write only the app-specific wiring.
 Keep shared credentials server-side and preserve user isolation.
 Run the relevant local checks and list remaining service/device tests.
 ```
@@ -183,7 +219,35 @@ If you copied only a skill folder, supply this guide's GitHub URL instead of the
 | Authorized service trial | Correct account, granted scopes, backend receipts, and retrieval in a new session without the original chat context |
 | App and glasses trial | Exact AIX/APK build, firmware/model, observed voice and display behavior |
 
-The AIUI example can be checked from the repository root with `node --test skills/aiui-everos-direct/scripts/everos-client.test.mjs`. This is an offline adapter test, not proof of a working glasses integration. See [validation history](validation.md).
+The SDK can be checked from the repository root with `node --test skills/aiui-everos-direct/scripts/*.test.mjs`. These are offline tests, not proof of a working glasses integration. See [validation history](validation.md).
+
+## 6. Reference project: AIUI Sport
+
+[Eason's AIUI-Sports-Agents](https://github.com/EasonZhu1997/AIUI-Sports-Agents) provides public Run, Bike and Rower source projects. Use the running app's existing memory boundary as a concrete place to understand SDK integration:
+
+```mermaid
+%%{init: {"theme":"base","htmlLabels":false,"flowchart":{"wrappingWidth":240},"themeVariables":{"fontFamily":"Arial, sans-serif","primaryColor":"#EEF4FF","primaryTextColor":"#172033","primaryBorderColor":"#2F63E8","lineColor":"#526078"}}}%%
+flowchart TB
+    A["AIUI Sport running app<br/>Existing coach and local records"]
+    B["Application memory adapter<br/>Keep the app's result shape"]
+    C["Reusable EverOS SDK<br/>add / search / flush"]
+    D["Your authenticated gateway<br/>EverOS Cloud or self-hosting"]
+    A -->|Existing recall and save boundary| B
+    B -.->|Proposed integration| C
+    C -->|HTTPS through wx.request| D
+    classDef component fill:#EEF4FF,stroke:#2F63E8,color:#172033
+    classDef step fill:#FFF1E8,stroke:#E64A19,color:#172033
+    class A,C,D component
+    class B step
+```
+
+| Public code, pinned to the reviewed version | What to learn |
+| --- | --- |
+| [Run / Bike / Rower projects](https://github.com/EasonZhu1997/AIUI-Sports-Agents/tree/1f34da442a830cfa571881cd6d81cb4eee08cc84/apps) | Separate AIUI apps and their lifecycle structure |
+| [Running app memory boundary](https://github.com/EasonZhu1997/AIUI-Sports-Agents/blob/1f34da442a830cfa571881cd6d81cb4eee08cc84/apps/smartrun/lib/coach_api.js#L175) | Request construction, bounded `{memories, profile}` parsing and question augmentation |
+| [Upload queue](https://github.com/EasonZhu1997/AIUI-Sports-Agents/blob/1f34da442a830cfa571881cd6d81cb4eee08cc84/apps/smartrun/lib/aiui_record_upload.js#L13) | FIFO processing, owner checks and deletion only after an explicit acknowledgement |
+
+The dashed edge is a proposed SDK adaptation. The public snapshot uses its own `memory-context` / `aiui-record` backend contract and has not been migrated to this SDK. Translate EverOS results in the application adapter, preserve the original owner checks and queue rules, and validate the resulting app separately. This source example makes the integration point inspectable without claiming a live EverMind deployment.
 
 ## Sources and scope
 

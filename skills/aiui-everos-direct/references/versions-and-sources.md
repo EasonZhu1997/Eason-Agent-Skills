@@ -31,4 +31,6 @@ EverMind 是组织/生态名；当前官方仓库名称为 **EverOS**。不要�
 
 官方在线入口：[API 总览](https://docs.evermind.ai/api-reference/introduction)、[Cloud 控制台](https://everos.evermind.ai)、[AIUI 开发文档](https://js.rokid.com/AIUI/)。
 
+本 Skill 随包维护 JavaScript SDK v0.1.0，针对 AIUI `wx.request` 提供无 Node 依赖的接线与生命周期处理；唯一实现在 `sdk/index.js`，旧 `.mjs` 入口只作兼容导出。它属于社区适配器，不与官方 [EverOS Python SDK](https://github.com/EverMind-AI/everos-cloud-sdk-python) 或 EverMe 的 agent-sdk 混称。公开案例 [AIUI-Sports-Agents](https://github.com/EasonZhu1997/AIUI-Sports-Agents/tree/1f34da442a830cfa571881cd6d81cb4eee08cc84) 展示原应用的可选记忆边界；该固定快照并未使用新 SDK。
+
 本 Skill 的工程经验来自 AIUI 跑步应用参考实现：本地先呈现、可选云记忆、身份隔离和迟到响应保护。该应用原有服务端路由并非 EverOS 官方 REST 契约；本 Skill 未复制业务域名、凭据、私有数据或专有后端实现，也不声称该应用已迁移到直连 v2。

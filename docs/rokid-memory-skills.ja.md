@@ -2,6 +2,12 @@
 
 [简体中文](rokid-memory-skills.md) · [English](rokid-memory-skills.en.md) · **日本語**
 
+<p>
+  <img src="assets/brand/rokid-logo-black-on-white.svg" height="64" alt="Rokid標準ロゴ" />
+  &nbsp;&nbsp;
+  <img src="assets/brand/evermind-logo.png" height="64" alt="EverMindロゴ" />
+</p>
+
 まずアプリの実行環境に合う経路を選び、**記憶を検索 → 回答 → 保存**の小さなループから始めましょう。この2つの開発Skillは、AIコーディングアシスタントが既存プロジェクトに連携機能を実装するための手引きです。Skill自体がグラス上で記憶サービスを実行するわけではありません。
 
 ## 1. 連携経路を選ぶ
@@ -38,6 +44,8 @@ flowchart TB
 flowchart TB
     subgraph Device["Rokidグラス"]
         A["AIUI Page / Widget / Agent Worker"]
+        K["共通EverOS JavaScript SDK<br/>バージョン0.1.0"]
+        A -->|add / search / flush| K
     end
     subgraph Backend["自社サービスの管理範囲"]
         G["認証付き記憶ゲートウェイ<br/>ユーザーとデータ範囲を紐付け"]
@@ -46,7 +54,7 @@ flowchart TB
         C["EverOS Cloud v2"]
         S["保護された自己ホスト版EverOS v2"]
     end
-    A -->|アプリ認証付きHTTPS| G
+    K -->|wx.requestとアプリ認証| G
     G -->|Cloud認証情報| C
     G -->|設定済みのサービス認証| S
     classDef component fill:#EEF4FF,stroke:#2F63E8,color:#172033
@@ -57,7 +65,34 @@ flowchart TB
 
 最初は`POST /api/v2/memory/search`で検索し、回答を生成してから、保存が許可された会話イベントを`POST /api/v2/memory/add`で送る流れを実装します。記憶の抽出が必要な場合は、セッションの区切りで`flush`を使います。`app_id`、`project_id`、ユーザーID、セッションIDを一貫させ、生のメッセージには**Unixミリ秒**のタイムスタンプを使ってください。埋め込みモデルを設定していない自己ホスト環境では、検索方式に`keyword`を明示します。
 
-実装の入口：[バージョンとデプロイ](../skills/aiui-everos-direct/references/versions-and-sources.md)、[v2リクエストと応答状態](../skills/aiui-everos-direct/references/api-v2.md)、[AIUIアダプター](../skills/aiui-everos-direct/references/aiui-adapter.md)。[参照モジュール](../skills/aiui-everos-direct/assets/everos-client.mjs)はリクエストと応答の処理を提供します。ゲートウェイ、ログイン、永続化キューはアプリ側で実装します。
+実装の入口：[バージョンとデプロイ](../skills/aiui-everos-direct/references/versions-and-sources.md)、[v2リクエストと応答状態](../skills/aiui-everos-direct/references/api-v2.md)、[AIUIアダプター](../skills/aiui-everos-direct/references/aiui-adapter.md)。
+
+### JavaScript SDKを再利用する
+
+Skillは、プロジェクトごとにHTTPクライアントを生成せず、バージョン管理された[AIUI EverOS SDK](../skills/aiui-everos-direct/sdk/README.md)を使うようになりました。リクエスト構築、応答解析、ユーザーの対応確認、タイムアウト、終了処理を1つの実装にまとめています。アプリ側では接続先、ユーザーID、実行時の認証情報、ライフサイクルを接続します。
+
+1. [v0.1.0リリース](https://github.com/EasonZhu1997/Eason-Agent-Skills/releases/tag/aiui-everos-sdk-v0.1.0)からSDKを取得するか、`skills/aiui-everos-direct/sdk/`全体をコピーします。
+2. AIUIプロジェクトの`lib/everos-sdk/`に配置し、`package.json`と`LICENSE`を保持します。
+3. `.js`モジュールを直接インポートします。次の接続例の`memoryConfig`はアプリが用意し、認証情報は実行時のコールバックから渡します。
+
+```js
+import wx from 'wx';
+import { createAIUIEverosClient } from '../../lib/everos-sdk/index.js';
+
+const memory = createAIUIEverosClient({ wx, ...memoryConfig });
+const result = await memory.search({ query: '通知方法の好み' });
+```
+
+`memoryConfig`には`baseUrl`、`scope: {appId, projectId, userId, assistantId}`、完全なBearer値を同期的に返す`getAuthorization()`、作成時のユーザー・認可世代が有効か確認する`isCurrent()`を設定します。`timeoutMs`は任意です。既存のログインとサービス設定から渡し、共有キーをソースに埋め込まないでください。
+
+| SDKメソッド | アプリ側で担当すること |
+| --- | --- |
+| `search({query, method, topK})` | 現在のユーザーに対応する必要な結果だけを使う |
+| `add({sessionId, messages})` | 保存が許可されたuser/assistantメッセージとミリ秒の時刻を渡す |
+| `flush({sessionId})` | 適切なセッションの区切りで抽出を要求する |
+| `dispose()` | ページ、ユーザー、認可の終了時にインスタンスを破棄する |
+
+Pageでは`onUnload()`、Widgetでは`onDestroy()`で`dispose()`を呼び、再利用時は新しいインスタンスを作ります。キャンセルしても、すでに送信した書き込みをサーバー上で取り消せるとは限りません。本SDKはこのリポジトリで保守するコミュニティ製AIUIアダプターであり、パッケージ名はnpmでの公開を意味しません。[SDKソース](../skills/aiui-everos-direct/sdk/index.js) · [型定義](../skills/aiui-everos-direct/sdk/index.d.ts)。
 
 ## 3. APK経路：ユーザーのEverMeアカウントを使う
 
@@ -160,6 +195,7 @@ $aiui-everos-directを使い、私のAIUIプロジェクトにEverOSの記憶機
 docs/rokid-memory-skills.ja.mdを読み、日本語で回答してください。
 現在のホストAPIを調査し、Cloudと自己ホスト版v2のどちらを使うか確認してください。
 APKを中継せず、検索 → 回答 → 許可された内容の保存までの小さなループを実装してください。
+同梱のJavaScript SDKを再利用し、アプリ固有の接続部分だけを実装してください。
 共有認証情報はサーバー側に置き、ユーザー間のデータを分離してください。
 必要なローカル検証を実行し、残るサービス・実機検証を列挙してください。
 ```
@@ -184,7 +220,35 @@ Skillディレクトリだけをコピーした場合は、プロンプト内の
 | 認可済みの実サービス検証 | 正しいアカウント、付与されたスコープ、バックエンドの処理記録、元の会話文脈を持たない新しいセッションでの検索結果 |
 | アプリとグラスの実機検証 | 対象AIX・APKのビルド、ファームウェアと機種、実際の音声・表示動作 |
 
-AIUIのサンプルは、リポジトリのルートで`node --test skills/aiui-everos-direct/scripts/everos-client.test.mjs`を実行して確認できます。これはオフラインのアダプターテストであり、グラス上の連携が動くことの証明ではありません。[検証履歴](validation.md)も参照してください。
+SDKは、リポジトリのルートで`node --test skills/aiui-everos-direct/scripts/*.test.mjs`を実行して確認できます。これはオフラインテストであり、グラス上の連携が動くことの証明ではありません。[検証履歴](validation.md)も参照してください。
+
+## 6. 参考プロジェクト：AIUI Sport
+
+[EasonのAIUI-Sports-Agents](https://github.com/EasonZhu1997/AIUI-Sports-Agents)では、ランニング、サイクリング、ローイング向けのAIUIアプリを公開しています。ランニングアプリの既存の記憶インターフェースを、SDKの組み込み箇所を検討する具体例として参照できます。
+
+```mermaid
+%%{init: {"theme":"base","htmlLabels":false,"flowchart":{"wrappingWidth":240},"themeVariables":{"fontFamily":"Arial, sans-serif","primaryColor":"#EEF4FF","primaryTextColor":"#172033","primaryBorderColor":"#2F63E8","lineColor":"#526078"}}}%%
+flowchart TB
+    A["AIUI Sportランニングアプリ<br/>既存コーチとローカル運動記録"]
+    B["アプリ側の記憶アダプター<br/>元の応答形式を維持"]
+    C["再利用可能なEverOS SDK<br/>add / search / flush"]
+    D["自社の認証ゲートウェイ<br/>EverOS Cloudまたは自己ホスト"]
+    A -->|既存の取得・保存インターフェース| B
+    B -.->|組み込み案| C
+    C -->|wx.request経由のHTTPS| D
+    classDef component fill:#EEF4FF,stroke:#2F63E8,color:#172033
+    classDef step fill:#FFF1E8,stroke:#E64A19,color:#172033
+    class A,C,D component
+    class B step
+```
+
+| 確認済みバージョンの公開コード | 参考になる点 |
+| --- | --- |
+| [Run / Bike / Rowerプロジェクト](https://github.com/EasonZhu1997/AIUI-Sports-Agents/tree/1f34da442a830cfa571881cd6d81cb4eee08cc84/apps) | 独立した3つのAIUIアプリとライフサイクル構成 |
+| [ランニングアプリの記憶インターフェース](https://github.com/EasonZhu1997/AIUI-Sports-Agents/blob/1f34da442a830cfa571881cd6d81cb4eee08cc84/apps/smartrun/lib/coach_api.js#L175) | リクエスト構築、長さを制限した`{memories, profile}`の解析、質問への文脈追加 |
+| [アップロードキュー](https://github.com/EasonZhu1997/AIUI-Sports-Agents/blob/1f34da442a830cfa571881cd6d81cb4eee08cc84/apps/smartrun/lib/aiui_record_upload.js#L13) | FIFO、所有者の一致確認、明示的な受領確認後の削除 |
+
+破線は新SDKの組み込み案を表します。公開スナップショットは独自の`memory-context / aiui-record`バックエンド契約を使っており、本SDKへの移行は行われていません。EverOSの結果をアプリ側で変換し、元の所有者チェックとキュー規則を保ったうえで、対象アプリを検証してください。この例は実装箇所を確認できるソース資料であり、EverMind実サービスやグラスとの連携が検証済みであることを示すものではありません。
 
 ## 参考資料と適用範囲
 

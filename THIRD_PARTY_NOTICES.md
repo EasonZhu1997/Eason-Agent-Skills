@@ -9,7 +9,8 @@
 ## 依赖与外部说明
 
 - `aiui-everos-direct` 与 `apk-everme-oauth` 为原创接入指导，参考 EverMind 官方 EverOS/EverMe 文档、公开接口和作者应用实践。只提炼通用设计与合成示例，不附私有应用源码、用户记忆、生产配置或完整飞书手册。逐项来源与核对日期见技能内的 references。
-- 三语图解指南进一步参考 [EverMind-AI/Plugins](https://github.com/EverMind-AI/Plugins) 的 EverOS search/status Skill 与 EverMe 官方 memory-mcp/memory-tools Skill；固定提交链接见各语言指南。说明与 Mermaid 图为本仓库重新编写，未复制完整上游 Skill、品牌图片或插件安装脚本；不将桌面自动捕获行为视为移动应用的数据授权。图解设计参考本仓库 architecture-diagram-design，保留其设计交流致谢。
+- 三语图解指南进一步参考 [EverMind-AI/Plugins](https://github.com/EverMind-AI/Plugins) 的 EverOS search/status Skill 与 EverMe 官方 memory-mcp/memory-tools Skill；固定提交链接见各语言指南。说明与 Mermaid 图为本仓库重新编写，未复制完整上游 Skill 或插件安装脚本；品牌资产单列于下节。不将桌面自动捕获行为视为移动应用的数据授权。图解设计参考本仓库 architecture-diagram-design，保留其设计交流致谢。
+- 包内 `aiui-everos-direct/sdk` 是作者维护的社区 AIUI JavaScript 适配器，采用本仓库 MIT 许可；不是 EverMind 或 Rokid 官方 SDK，也未以包名宣称已发布到 npm。三语指南链接作者公开的 AIUI-Sports-Agents 固定源码版本，并以原创图标示拟接线；没有发布其私有后端，也不把原项目说成已经迁移到该 SDK。
 - [EverOS](https://github.com/EverMind-AI/EverOS) 与 [EverMe](https://github.com/EverMind-AI/EverMe) 上游项目分别保留其 Apache-2.0 许可；外部 API、文档和品牌不因本仓库 MIT 许可而被重新授权。Rokid、AIUI、EverOS、EverMe、EverMind 名称仅用于说明适配对象，本仓库为社区分享，不声明官方认证或商业合作背书。
 
 - Python、Node.js 及第三方解析器是独立依赖，不作为本仓库原创内容重新授权。
@@ -19,10 +20,12 @@
 
 ## 图片与品牌
 
+三语 Rokid 记忆指南使用用户提供的 EverMind 完整标志，以及从用户提供的《乐奇Rokid 品牌视觉规范手册 V3.0》第 9 页提取的标准黑标白底矢量。标志保持比例、原色和独立留白，Rokid 居左；来源与使用说明见 [品牌资产说明](docs/assets/brand/README.md)。**这两项品牌资产不属于本仓库 MIT 授权**，商标和原始图稿权利分别归 Rokid、EverMind 等相应权利人所有；展示用于识别接入技术，不表示官方认证或合作背书。完整品牌手册未纳入仓库。
+
 蓝墨纸绘原技能中的历史风格参考图片未确认可再分发授权，未纳入公开仓库。公开版本使用文字风格规范，并允许用户提供有权使用的参考图；不复制参考图的具体人物、文字、地图或品牌内容。
 
 粉笔板书从用户提供的图中提炼通用画风与教学排版，并结合用户补充的《黑板手绘方法论信息图设计规范》整合单页教学结构、配色、组件与模板。公开包包含重新整理的技能说明、文字规范和通用示例提示词；未附参考原图及原始规范文件，不复用原图品牌或具体插画。原始参考素材不属于本仓库 MIT 授权内容。
 
 白板手绘沿用单页教学组织方法，独立编写白板与马克笔的视觉规范。包内通用示例图由内置图像工具根据本仓库提示词生成，没有使用第三方参考图片、品牌标志或私有项目内容；提示词与生成记录随技能提供。该示例仅解释工作方法，不证明任何真实项目的完成状态。包内自有说明和所能授予的示例使用权按本仓库 MIT 许可分享，不承诺生成图的独占性。
 
-除前述架构图设计能力与白板手绘的通用示例图外，本仓库不附带真实发布素材或用户参考图片。未来新增图片、字体、模板或第三方代码时，需要先确认来源与许可，再添加对应声明。平台名称仅用于说明兼容工作流，不表示获得官方背书。
+除前述通用示例图及已单列来源的品牌标志外，本仓库不附带真实发布素材或其他用户参考图片。未来新增图片、字体、模板或第三方代码时，需要先确认来源与许可，再添加对应声明。平台名称仅用于说明兼容工作流，不表示获得官方背书。

@@ -8,16 +8,18 @@
 
 Page 可按目标版本使用 `fetch`，但现有应用已用 wx 时保留其错误/取消处理。不要把 Page 的 fetch 代码直接搬到 Agent Worker；Worker 的全局能力与生命周期不同。
 
-## 参考模块的接线方式
+## SDK 的接线方式
+
+将整个包内 `sdk/` 复制到应用 `lib/everos-sdk/`，保留 `package.json` 的版本和 LICENSE。SDK 是唯一 HTTP 实现；应用只接入自己的凭据、身份与生命周期。`createAIUIEverosClient` 负责绑定 `wx.request`，不用另写请求封装。需要自定义传输时才使用底层 `createEverosClient`。
 
 以下是接线片段，`sessionConfig` 与 `authorization` 由应用自己取得，**不是完整可运行 Page**：
 
 ```js
 import wx from 'wx';
-import { createEverosClient } from '../../lib/everos-client.js';
+import { createAIUIEverosClient } from '../../lib/everos-sdk/index.js';
 
-const client = createEverosClient({
-  request: (options) => wx.request(options),
+const client = createAIUIEverosClient({
+  wx,
   baseUrl: 'https://api.evermind.ai',
   scope: sessionConfig, // {appId, projectId, userId, assistantId}
   getAuthorization: () => authorization, // 运行时字符串，例如 Bearer + 自己的 key
@@ -26,7 +28,12 @@ const client = createEverosClient({
 
 const result = await client.search({query: '偏好的提醒方式', method: 'keyword'});
 // result.data 是业务 data；真正展示或传给模型前，再检查页面和 owner 仍有效。
+
+// 所属页面销毁、账号切换或撤权时：
+client.dispose();
 ```
+
+`dispose()` 后重新进入需要新实例；不要反复复用已销毁的 client。Page 的最终清理放在 `onUnload()`，Widget 放在 `onDestroy()`；hide/detach 暂停可见任务并使对应 UI 请求代次失效，恢复时按业务需要重建。取消在途请求只能尽力停止传输，不能保证已发出的写入没有在服务端执行。
 
 首次集成先只接用户触发的“保存此偏好/读取记忆”，再按产品已授权范围扩展自动保存。不要把示例中的合成测试数据在启动时自动写入用户账号。
 
