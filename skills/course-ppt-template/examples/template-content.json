@@ -1,0 +1,111 @@
+{
+  "title": "课程名称",
+  "slides": [
+    {
+      "layout": "cover",
+      "slots": {
+        "title": "课程名称\n课程副标题",
+        "presenter": "主讲：讲师姓名"
+      }
+    },
+    {
+      "layout": "overview",
+      "slots": {
+        "title": "本节课的学习目标",
+        "subtitle": "填写学习对象与课程范围",
+        "module": "课程导入",
+        "heading1": "目标一 · 理解概念",
+        "body1": "填写第一个能够观察和检查的学习目标。",
+        "heading2": "目标二 · 识别方法",
+        "body2": "填写第二个能够观察和检查的学习目标。",
+        "heading3": "目标三 · 完成实践",
+        "body3": "填写第三个能够观察和检查的学习目标。",
+        "heading4": "目标四 · 复盘改进",
+        "body4": "填写第四个能够观察和检查的学习目标。",
+        "sidebar_title": "学习准备",
+        "sidebar1": "准备一：填写所需材料",
+        "sidebar2": "准备二：填写先修知识",
+        "sidebar3": "准备三：填写分组安排",
+        "sidebar_note": "用一句话写明本节课的交付物。"
+      }
+    },
+    {
+      "layout": "section",
+      "slots": {
+        "module": "模块一",
+        "title": "章节标题",
+        "description": "用简洁的文字介绍本章主题，以及它与课程目标的关系。",
+        "objectives_title": "本章学完以后能够",
+        "code1": "K1.1",
+        "heading1": "知识点一",
+        "body1": "填写可检查的学习结果。",
+        "code2": "K1.2",
+        "heading2": "知识点二",
+        "body2": "填写可检查的学习结果。",
+        "code3": "K1.3",
+        "heading3": "知识点三",
+        "body3": "填写可检查的学习结果。"
+      }
+    },
+    {
+      "layout": "concepts",
+      "slots": {
+        "title": "三个核心知识点",
+        "subtitle": "填写本页对应的知识点编号",
+        "module": "模块一",
+        "heading1": "知识点一 · 概念",
+        "body1": "说明概念的含义，并给出一个与学员有关的具体例子。",
+        "heading2": "知识点二 · 方法",
+        "body2": "说明方法适用的条件，以及实际操作时的关键步骤。",
+        "heading3": "知识点三 · 判断",
+        "body3": "说明学员如何判断操作是否正确，以及常见问题如何改进。",
+        "callout_title": "本页要点",
+        "callout_body": "用简洁的话总结本页最需要记住的方法。"
+      }
+    },
+    {
+      "layout": "comparison",
+      "slots": {
+        "title": "双栏示范与比较",
+        "subtitle": "填写比较的主题和观察任务",
+        "module": "示范",
+        "left_label": "示例一",
+        "left_body": "描述第一种情形或操作。",
+        "left_note": "填写示例一的观察提示。",
+        "right_label": "示例二",
+        "right_body": "描述第二种情形或操作。",
+        "right_note": "填写示例二的观察提示。",
+        "heading1": "观察点一",
+        "body1": "说明两种示例在第一个方面的差异。",
+        "heading2": "观察点二",
+        "body2": "说明两种示例在第二个方面的差异。",
+        "heading3": "观察点三",
+        "body3": "说明两种示例在第三个方面的差异。"
+      }
+    },
+    {
+      "layout": "exercise",
+      "slots": {
+        "title": "课堂练习",
+        "instruction": "填写练习材料、协作方式和提交要求。",
+        "duration": "练习 · 5分钟",
+        "question1": "Q1  请写出第一项练习任务。",
+        "question2": "Q2  请写出第二项练习任务。",
+        "question3": "Q3  请写出第三项练习任务。",
+        "footer": "根据课堂目标检查完成结果。"
+      }
+    },
+    {
+      "layout": "closing",
+      "slots": {
+        "eyebrow": "本节课学习小结",
+        "title": "回顾核心方法\n带着成果离开课堂",
+        "outcome1": "理解核心概念",
+        "outcome2": "掌握方法",
+        "outcome3": "完成课堂练习",
+        "outcome4": "记录改进方向",
+        "footer": "填写课后实践任务与下次课安排。"
+      }
+    }
+  ]
+}

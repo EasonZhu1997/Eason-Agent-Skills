@@ -1,0 +1,477 @@
+{
+  "version": 1,
+  "name": "lesson-blue-purple",
+  "slide_size": [
+    12192000,
+    6858000
+  ],
+  "source_filename": "Lesson02_进阶商业化落地实践流程.pptx",
+  "font": "微软雅黑",
+  "layouts": {
+    "cover": {
+      "slide": 1,
+      "slots": {
+        "course": {
+          "shape_id": 5,
+          "max_chars": 24,
+          "max_lines": 1,
+          "auto": "@course"
+        },
+        "title": {
+          "shape_id": 6,
+          "max_chars": 24,
+          "max_lines": 3,
+          "max_chars_per_line": 8
+        },
+        "presenter": {
+          "shape_id": 11,
+          "max_chars": 14,
+          "max_lines": 1
+        }
+      },
+      "remove_shapes": [
+        9
+      ]
+    },
+    "overview": {
+      "slide": 2,
+      "slots": {
+        "title": {
+          "shape_id": 2977,
+          "max_chars": 20,
+          "max_lines": 1
+        },
+        "subtitle": {
+          "shape_id": 2978,
+          "max_chars": 32,
+          "max_lines": 1
+        },
+        "module": {
+          "shape_id": 2980,
+          "max_chars": 8,
+          "max_lines": 1
+        },
+        "heading1": {
+          "shape_id": 2982,
+          "max_chars": 20,
+          "max_lines": 1
+        },
+        "body1": {
+          "shape_id": 2983,
+          "max_chars": 48,
+          "max_lines": 1
+        },
+        "heading2": {
+          "shape_id": 2985,
+          "max_chars": 20,
+          "max_lines": 1
+        },
+        "body2": {
+          "shape_id": 2986,
+          "max_chars": 48,
+          "max_lines": 1
+        },
+        "heading3": {
+          "shape_id": 2988,
+          "max_chars": 20,
+          "max_lines": 1
+        },
+        "body3": {
+          "shape_id": 2989,
+          "max_chars": 80,
+          "max_lines": 2
+        },
+        "heading4": {
+          "shape_id": 2991,
+          "max_chars": 20,
+          "max_lines": 1
+        },
+        "body4": {
+          "shape_id": 2992,
+          "max_chars": 48,
+          "max_lines": 1
+        },
+        "sidebar_title": {
+          "shape_id": 2994,
+          "max_chars": 22,
+          "max_lines": 1
+        },
+        "sidebar1": {
+          "shape_id": 2996,
+          "max_chars": 32,
+          "max_lines": 1
+        },
+        "sidebar2": {
+          "shape_id": 2998,
+          "max_chars": 32,
+          "max_lines": 1
+        },
+        "sidebar3": {
+          "shape_id": 3000,
+          "max_chars": 32,
+          "max_lines": 1
+        },
+        "sidebar_note": {
+          "shape_id": 3003,
+          "max_chars": 30,
+          "max_lines": 1
+        },
+        "required": {
+          "shape_id": 3008,
+          "max_chars": 2,
+          "max_lines": 1,
+          "auto": "@required"
+        },
+        "page": {
+          "shape_id": 3009,
+          "max_chars": 10,
+          "max_lines": 1,
+          "auto": "@page"
+        }
+      },
+      "remove_shapes": []
+    },
+    "section": {
+      "slide": 4,
+      "slots": {
+        "module": {
+          "shape_id": 3822,
+          "max_chars": 12,
+          "max_lines": 1
+        },
+        "title": {
+          "shape_id": 3823,
+          "max_chars": 6,
+          "max_lines": 1,
+          "max_chars_per_line": 6
+        },
+        "description": {
+          "shape_id": 3824,
+          "max_chars": 46,
+          "max_lines": 3
+        },
+        "objectives_title": {
+          "shape_id": 3825,
+          "max_chars": 30,
+          "max_lines": 1
+        },
+        "code1": {
+          "shape_id": 3828,
+          "max_chars": 5,
+          "max_lines": 1
+        },
+        "heading1": {
+          "shape_id": 3829,
+          "max_chars": 26,
+          "max_lines": 1
+        },
+        "body1": {
+          "shape_id": 3830,
+          "max_chars": 28,
+          "max_lines": 1
+        },
+        "code2": {
+          "shape_id": 3833,
+          "max_chars": 5,
+          "max_lines": 1
+        },
+        "heading2": {
+          "shape_id": 3834,
+          "max_chars": 26,
+          "max_lines": 1
+        },
+        "body2": {
+          "shape_id": 3835,
+          "max_chars": 28,
+          "max_lines": 1
+        },
+        "code3": {
+          "shape_id": 3838,
+          "max_chars": 5,
+          "max_lines": 1
+        },
+        "heading3": {
+          "shape_id": 3839,
+          "max_chars": 26,
+          "max_lines": 1
+        },
+        "body3": {
+          "shape_id": 3840,
+          "max_chars": 28,
+          "max_lines": 1
+        },
+        "page": {
+          "shape_id": 3843,
+          "max_chars": 10,
+          "max_lines": 1,
+          "auto": "@page"
+        }
+      },
+      "remove_shapes": []
+    },
+    "concepts": {
+      "slide": 123,
+      "slots": {
+        "title": {
+          "shape_id": 959,
+          "max_chars": 20,
+          "max_lines": 1
+        },
+        "subtitle": {
+          "shape_id": 960,
+          "max_chars": 32,
+          "max_lines": 1
+        },
+        "module": {
+          "shape_id": 962,
+          "max_chars": 8,
+          "max_lines": 1
+        },
+        "heading1": {
+          "shape_id": 964,
+          "max_chars": 24,
+          "max_lines": 1
+        },
+        "body1": {
+          "shape_id": 965,
+          "max_chars": 66,
+          "max_lines": 1
+        },
+        "heading2": {
+          "shape_id": 967,
+          "max_chars": 24,
+          "max_lines": 1
+        },
+        "body2": {
+          "shape_id": 968,
+          "max_chars": 66,
+          "max_lines": 1
+        },
+        "heading3": {
+          "shape_id": 970,
+          "max_chars": 24,
+          "max_lines": 1
+        },
+        "body3": {
+          "shape_id": 971,
+          "max_chars": 66,
+          "max_lines": 1
+        },
+        "callout_title": {
+          "shape_id": 973,
+          "max_chars": 4,
+          "max_lines": 1
+        },
+        "callout_body": {
+          "shape_id": 974,
+          "max_chars": 70,
+          "max_lines": 1
+        },
+        "course": {
+          "shape_id": 977,
+          "max_chars": 20,
+          "max_lines": 1,
+          "auto": "@course"
+        },
+        "required": {
+          "shape_id": 979,
+          "max_chars": 2,
+          "max_lines": 1,
+          "auto": "@required"
+        },
+        "page": {
+          "shape_id": 980,
+          "max_chars": 10,
+          "max_lines": 1,
+          "auto": "@page"
+        }
+      },
+      "remove_shapes": []
+    },
+    "comparison": {
+      "slide": 8,
+      "slots": {
+        "title": {
+          "shape_id": 17,
+          "max_chars": 24,
+          "max_lines": 1
+        },
+        "subtitle": {
+          "shape_id": 18,
+          "max_chars": 30,
+          "max_lines": 1
+        },
+        "module": {
+          "shape_id": 20,
+          "max_chars": 8,
+          "max_lines": 1
+        },
+        "left_label": {
+          "shape_id": 23,
+          "max_chars": 10,
+          "max_lines": 1
+        },
+        "left_body": {
+          "shape_id": 24,
+          "max_chars": 56,
+          "max_lines": 2,
+          "max_chars_per_line": 20
+        },
+        "left_note": {
+          "shape_id": 25,
+          "max_chars": 34,
+          "max_lines": 1
+        },
+        "right_label": {
+          "shape_id": 28,
+          "max_chars": 6,
+          "max_lines": 1
+        },
+        "right_body": {
+          "shape_id": 29,
+          "max_chars": 50,
+          "max_lines": 2,
+          "max_chars_per_line": 24
+        },
+        "right_note": {
+          "shape_id": 30,
+          "max_chars": 34,
+          "max_lines": 1
+        },
+        "heading1": {
+          "shape_id": 33,
+          "max_chars": 16,
+          "max_lines": 1
+        },
+        "body1": {
+          "shape_id": 34,
+          "max_chars": 42,
+          "max_lines": 3
+        },
+        "heading2": {
+          "shape_id": 37,
+          "max_chars": 16,
+          "max_lines": 1
+        },
+        "body2": {
+          "shape_id": 38,
+          "max_chars": 42,
+          "max_lines": 3
+        },
+        "heading3": {
+          "shape_id": 41,
+          "max_chars": 16,
+          "max_lines": 1
+        },
+        "body3": {
+          "shape_id": 42,
+          "max_chars": 42,
+          "max_lines": 3
+        },
+        "course": {
+          "shape_id": 45,
+          "max_chars": 20,
+          "max_lines": 1,
+          "auto": "@course"
+        },
+        "required": {
+          "shape_id": 47,
+          "max_chars": 2,
+          "max_lines": 1,
+          "auto": "@required"
+        },
+        "page": {
+          "shape_id": 48,
+          "max_chars": 10,
+          "max_lines": 1,
+          "auto": "@page"
+        }
+      },
+      "remove_shapes": []
+    },
+    "exercise": {
+      "slide": 9,
+      "slots": {
+        "title": {
+          "shape_id": 411,
+          "max_chars": 8,
+          "max_lines": 2,
+          "max_chars_per_line": 6
+        },
+        "instruction": {
+          "shape_id": 412,
+          "max_chars": 30,
+          "max_lines": 3
+        },
+        "duration": {
+          "shape_id": 414,
+          "max_chars": 12,
+          "max_lines": 1
+        },
+        "question1": {
+          "shape_id": 416,
+          "max_chars": 40,
+          "max_lines": 1
+        },
+        "question2": {
+          "shape_id": 420,
+          "max_chars": 40,
+          "max_lines": 1
+        },
+        "question3": {
+          "shape_id": 424,
+          "max_chars": 40,
+          "max_lines": 1
+        },
+        "footer": {
+          "shape_id": 428,
+          "max_chars": 40,
+          "max_lines": 1
+        }
+      },
+      "remove_shapes": []
+    },
+    "closing": {
+      "slide": 145,
+      "slots": {
+        "eyebrow": {
+          "shape_id": 1910,
+          "max_chars": 18,
+          "max_lines": 1
+        },
+        "title": {
+          "shape_id": 1911,
+          "max_chars": 30,
+          "max_lines": 2,
+          "max_chars_per_line": 12
+        },
+        "outcome1": {
+          "shape_id": 1913,
+          "max_chars": 10,
+          "max_lines": 1
+        },
+        "outcome2": {
+          "shape_id": 1915,
+          "max_chars": 6,
+          "max_lines": 1
+        },
+        "outcome3": {
+          "shape_id": 1917,
+          "max_chars": 9,
+          "max_lines": 1
+        },
+        "outcome4": {
+          "shape_id": 1919,
+          "max_chars": 9,
+          "max_lines": 1
+        },
+        "footer": {
+          "shape_id": 1920,
+          "max_chars": 38,
+          "max_lines": 1
+        }
+      },
+      "remove_shapes": []
+    }
+  }
+}

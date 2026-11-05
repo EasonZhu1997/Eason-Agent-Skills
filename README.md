@@ -16,6 +16,7 @@
 | 粉笔板书 | 黑板手绘方法论信息图，一页一个问题，支持流程、对比、模块矩阵与底部总结 | [说明](skills/chalkboard-explainer/README.md) |
 | 白板手绘 | 近白板面、深色马克笔字和浅色高亮，支持工作坊、流程、对比与方法论图解，附示例图 | [说明](skills/whiteboard-explainer/README.md) |
 | 架构图设计能力 | 分层系统总览、跨层业务流程与可编辑 SVG 图表 | [说明](skills/architecture-diagram-design/README.md) |
+| 标准课程 PPT 模板 | DSH Flash 生成教学内容，固定蓝紫版式输出可编辑 PPTX，附本地渲染与一致性验证 | [技能](skills/course-ppt-template/SKILL.md) |
 | Rokid × EverMind（独立仓库） | AIUI JavaScript SDK、Rokid SDK × EverMe Skill 与中英日图文指南 | [前往专属仓库](https://github.com/EasonZhu1997/Rokid-EverMind-Skills) |
 
 各技能支持的格式与限制以其说明为准，不把某一平台的按钮、图床域名或编辑器规则套用于其他平台。

@@ -1,0 +1,155 @@
+{
+  "title": "手机摄影入门",
+  "slides": [
+    {
+      "layout": "cover",
+      "slots": {
+        "title": "手机摄影\n从看见到拍好",
+        "presenter": "主讲：课程讲师"
+      }
+    },
+    {
+      "layout": "overview",
+      "slots": {
+        "title": "本课学习目标",
+        "subtitle": "45分钟，学会拍好一张生活照",
+        "module": "课程导入",
+        "heading1": "拍前检查",
+        "body1": "按顺序看画面、光线和主体",
+        "heading2": "看懂光线",
+        "body2": "判断光从哪来、落在哪里",
+        "heading3": "简洁构图",
+        "body3": "用一个主体和干净背景说话",
+        "heading4": "比较改进",
+        "body4": "拍三张，比一比再调整",
+        "sidebar_title": "练习提示",
+        "sidebar1": "全程使用同一只杯子练习",
+        "sidebar2": "不追求设备，只练观察",
+        "sidebar3": "每拍一张先停三秒再按",
+        "sidebar_note": "45分钟，边学边拍"
+      }
+    },
+    {
+      "layout": "section",
+      "slots": {
+        "module": "拍摄基础",
+        "title": "先看后拍",
+        "description": "同一只杯子，换个背景、光线和位置，画面就会不同。",
+        "objectives_title": "本章学习目标",
+        "code1": "01",
+        "heading1": "拍前检查画面",
+        "body1": "看主体、背景与边缘",
+        "code2": "02",
+        "heading2": "判断光线方向",
+        "body2": "顺光、侧光与逆光",
+        "code3": "03",
+        "heading3": "用构图突出主体",
+        "body3": "留白、靠近、简化背景"
+      }
+    },
+    {
+      "layout": "concepts",
+      "slots": {
+        "title": "拍前检查",
+        "subtitle": "按下快门前，先看三处",
+        "module": "核心知识",
+        "heading1": "看主体",
+        "body1": "主体是否清楚、完整，是否在画面中足够显眼。",
+        "heading2": "看背景",
+        "body2": "背景有没有杂物、亮斑或线条抢走注意力。",
+        "heading3": "看边缘",
+        "body3": "画面四边有没有被切断的人或物，退一步再拍。",
+        "callout_title": "检查顺序",
+        "callout_body": "主体 → 背景 → 边缘。三项都过关，再按下快门。"
+      }
+    },
+    {
+      "layout": "concepts",
+      "slots": {
+        "title": "光线方向",
+        "subtitle": "先找光，再决定站在哪里",
+        "module": "核心知识",
+        "heading1": "顺光",
+        "body1": "光从身后照向主体，颜色真实、细节清楚，画面较平。",
+        "heading2": "侧光",
+        "body2": "光从侧面来，明暗有层次，能显出杯子的形状和质感。",
+        "heading3": "逆光",
+        "body3": "光在主体背后，轮廓亮、正面暗，容易过曝或发灰。",
+        "callout_title": "选择建议",
+        "callout_body": "新手先用侧光：既有明暗，又能保留杯子的细节。"
+      }
+    },
+    {
+      "layout": "concepts",
+      "slots": {
+        "title": "简洁构图",
+        "subtitle": "让观众一眼看到主体",
+        "module": "核心知识",
+        "heading1": "靠近主体",
+        "body1": "走近一步或用变焦，让杯子占据画面更重要的位置。",
+        "heading2": "留出空间",
+        "body2": "在主体前方留一点空白，画面更透气，视线有落点。",
+        "heading3": "简化背景",
+        "body3": "换一面纯色墙或桌面，移走杂物，减少视觉干扰。",
+        "callout_title": "构图口诀",
+        "callout_body": "一个主体，一面干净背景，一个明确的视觉中心。"
+      }
+    },
+    {
+      "layout": "comparison",
+      "slots": {
+        "title": "对比示范",
+        "subtitle": "同一只杯子，三种拍法",
+        "module": "案例对照",
+        "left_label": "随手拍",
+        "left_body": "顶光直下，背景杂物多，杯身暗。",
+        "left_note": "画面杂，主体不突出",
+        "right_label": "调整后",
+        "right_body": "纯色墙前，侧光靠近，留出空间。",
+        "right_note": "主体清楚，画面干净",
+        "heading1": "背景",
+        "body1": "移走杂物，换纯色墙面",
+        "heading2": "光线",
+        "body2": "改用侧光，避开顶光",
+        "heading3": "位置",
+        "body3": "靠近主体，留出前方空间"
+      }
+    },
+    {
+      "layout": "exercise",
+      "slots": {
+        "title": "练习一\n拍杯子",
+        "instruction": "同一只杯子，拍三张：换背景、换光线、换位置。",
+        "duration": "10分钟",
+        "question1": "第一张：换一个干净背景",
+        "question2": "第二张：改用侧光拍摄",
+        "question3": "第三张：靠近并改变角度",
+        "footer": "每张只改一个条件，便于比较"
+      }
+    },
+    {
+      "layout": "exercise",
+      "slots": {
+        "title": "练习二\n比一比",
+        "instruction": "回看三张照片，选出主体最清楚的一张。",
+        "duration": "8分钟",
+        "question1": "哪一张背景最干净？",
+        "question2": "哪一张光线最有层次？",
+        "question3": "下一张你准备改什么？",
+        "footer": "把改进写下来，再拍一张验证"
+      }
+    },
+    {
+      "layout": "closing",
+      "slots": {
+        "eyebrow": "课程小结",
+        "title": "先观察\n再按快门",
+        "outcome1": "拍前检查",
+        "outcome2": "光线",
+        "outcome3": "构图取舍",
+        "outcome4": "比较改进",
+        "footer": "谢谢观看，拿起手机从一只杯子开始"
+      }
+    }
+  ]
+}
